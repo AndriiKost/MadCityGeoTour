@@ -1,0 +1,16 @@
+<div class="map-container">
+  <h2>{{ title }}</h2>
+  <app-modal-window
+    *ngIf="modalWindow"
+    (closeModal)="receiveCloseModal($event)"
+    [geoObject]="currentObject"></app-modal-window>
+  <agm-map [latitude]="currentLatitude" [longitude]="currentLongtitude">
+    <agm-marker *ngFor="let object of fakeObject"
+      [latitude]="object.coords.latitude"
+      [longitude]="object.coords.longitude"
+      [id]="object.id"
+      (markerClick)="handleMarkerClick($event)">
+    </agm-marker>
+  </agm-map>
+  <app-checkin *ngIf="currentLatitude && currentLongtitude"></app-checkin>
+</div>

@@ -1,0 +1,22 @@
+<div class="nav-menu">
+    <div class="container" (click)="changeStyleClass()" [ngClass]="status ? 'change' : null">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </div>
+    <div *ngIf="status" class="menu-content">
+        <div class="container" (click)="changeStyleClass()" [ngClass]="status ? 'change' : null">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+          </div>
+          <div class="menu-list">
+            <ul>
+              <li>Account</li>
+              <li>Checklist</li>
+              <li>Map</li>
+              <li>Rules</li>
+            </ul>
+          </div>
+    </div>
+</div>
