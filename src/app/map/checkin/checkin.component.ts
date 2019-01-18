@@ -20,8 +20,7 @@ export class CheckinComponent implements OnInit {
       this.latitude = position.coords.latitude;
       this.longtitude = position.coords.longitude;
       const distance = this.checkInService.calculateDistance(position.coords.latitude, position.coords.longitude);
-      console.log(distance);
-      console.log(this.latitude, this.longtitude);
+      console.log('you are', distance, ' feet away from the closest object.');
     });
   }
 

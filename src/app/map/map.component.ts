@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { GeoObject } from '../models/GeoObject.model';
+import { GeoObjectService } from '../services/geoObject.service';
 
 @Component({
   selector: 'app-map',
@@ -6,8 +8,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit {
-
-  title = 'Please enjoy yourself while you are in our town!';
   currentLatitude: number;
   currentLongtitude: number;
   modalWindow = false;
@@ -41,15 +41,16 @@ export class MapComponent implements OnInit {
       address: '323 Williamston St, Madison WI 53722'
     },
   ];
-  currentObject: Object;
+  currentObject: GeoObject;
 
-  constructor() { }
+  constructor(public geoObjectService: GeoObjectService) { }
 
   ngOnInit() {
     navigator.geolocation.getCurrentPosition((position) => {
       this.currentLatitude = position.coords.latitude;
       this.currentLongtitude = position.coords.longitude;
     });
+    this.geoObjectService.getAllObjects();
   }
 
   handleMarkerClick(event) {

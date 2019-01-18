@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { GeoObject } from '../models/GeoObject.model';
+import { GeoObjectService } from './geoObject.service';
 
 
 @Injectable({
@@ -34,22 +36,14 @@ export class CheckInService {
       name: 'Wisconsin Public Place',
       address: '323 Williamston St, Madison WI 53722'
     },
-    {
-      id: 4,
-      coords: {
-        latitude: 43.0939877,
-        longitude: -89.5286531,
-      },
-      name: 'My Location',
-      address: 'Bla bla stret'
-    },
   ];
 
-  constructor() { }
+  constructor(private objectService: GeoObjectService ) { }
 
   calculateDistance(latitude, longtitude) {
-    const lat2 = this.fakeObject[3].coords.latitude;
-    const lon2 = this.fakeObject[3].coords.longitude;
+    const lat2 = this.fakeObject[2].coords.latitude;
+    const lon2 = this.fakeObject[2].coords.longitude;
+
     const R = 6378.137; // Radius of earth in KM
     const dLat = lat2 * Math.PI / 180 - latitude * Math.PI / 180;
     const dLon = lon2 * Math.PI / 180 - longtitude * Math.PI / 180;
@@ -60,6 +54,7 @@ export class CheckInService {
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const d = R * c;
     return Math.round((d * 1000 * 3.2808));
+}
 }
 
 // initialCheckInHandler = () => {

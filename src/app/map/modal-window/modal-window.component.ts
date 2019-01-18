@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { GeoObject } from 'src/app/models/GeoObject.model';
 
 @Component({
   selector: 'app-modal-window',
@@ -7,7 +8,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 })
 export class ModalWindowComponent implements OnInit {
   @Output() closeModal = new EventEmitter<boolean>();
-  @Input() geoObject: Object;
+  @Input() geoObject: GeoObject;
 
 
   constructor() { }
