@@ -1,16 +1,15 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-const config = require('../config/database');
+const Schema = mongoose.Schema;
 
 // GeoObject Schema
-const GeoObject = mongoose.Schema({
+const GeoObjectSchema = new Schema({
   id: {
     type: Number,
     required: true
   },
   coords: {
-    latitude: [Number],
-    longitude: [Number]
+    latitude: {type: Number},
+    longitude: {type: Number}
   },
   name: {
     type: String,
@@ -22,4 +21,25 @@ const GeoObject = mongoose.Schema({
   }
 });
 
-const GeoObject = module.exports = mongoose.model('GeoObject', GeoObject);
+module.exports = mongoose.model('GeoObject', GeoObjectSchema);
+
+// // Allow to call the find function from the outside of the file
+// module.exports.getUserById = function(id, callback){
+//   User.findById(id, callback);
+// };
+
+// module.exports.getUserByUsername = function(username, callback){
+//   const query = {username: username};
+//   User.findOne(query, callback);
+// };
+
+// // Encrypt password
+// module.exports.addUser = function(newUser, callback) {
+//   bcrypt.genSalt(10, (err, salt) => {
+//       bcrypt.hash(newUser.password, salt, (err, hash) => {
+//           if(err) throw err;
+//           newUser.password = hash;
+//           newUser.save(callback);
+//       });
+//   });
+// }

@@ -4,7 +4,7 @@
     (closeModal)="receiveCloseModal($event)"
     [geoObject]="currentObject"></app-modal-window>
   <agm-map [latitude]="currentLatitude" [longitude]="currentLongtitude">
-    <agm-marker *ngFor="let object of fakeObject"
+    <agm-marker *ngFor="let object of geoObjects"
       [latitude]="object.coords.latitude"
       [longitude]="object.coords.longitude"
       [id]="object.id"

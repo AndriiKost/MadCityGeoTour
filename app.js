@@ -19,6 +19,7 @@ mongoose.connection.on('error', (err) => {
 const app = express();
 
 const users = require('./routes/users');
+const geoObjects = require('./routes/geoObjects');
 
 const port = process.env.PORT || 8000;
 
@@ -30,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'src')));
 
 // Body Parser Middleware
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 
 // Pasport's Middleware
 app.use(passport.initialize());
@@ -43,6 +45,9 @@ app.use('/users', users);
 app.get('/', (req, res) => {
     res.send('Invalid Endpoint');
 });
+
+// Geo Obejct route
+app.use('/geo-objects', geoObjects);
 
 // Any other route redirect to the index page
 app.get('*', (req, res) => {

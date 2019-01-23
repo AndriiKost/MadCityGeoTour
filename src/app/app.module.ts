@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { GOOGLE_MAPS_API } from '../const/API.js';
 import { AgmCoreModule } from '@agm/core';
@@ -21,6 +21,7 @@ import { GeoObjectService } from './services/geoObject.service';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AgmCoreModule.forRoot({
       apiKey: GOOGLE_MAPS_API
     })
