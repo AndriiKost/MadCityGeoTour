@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Input } from '@angular/core';
 import { GeoObject } from '../models/GeoObject.model';
 import { GeoObjectService } from './geoObject.service';
 
@@ -8,47 +8,49 @@ import { GeoObjectService } from './geoObject.service';
 })
 export class CheckInService {
 
-  fakeObject = [
-    {
-      id: 1,
-      coords: {
-        latitude: 43.0764198,
-        longitude: -89.3880422,
-      },
-      name: 'Wisconsin State Capitol',
-      address: '25 State St, Madison WI 53701'
-    },
-    {
-      id: 2,
-      coords: {
-        latitude: 43.0794198,
-        longitude: -89.3280422,
-      },
-      name: 'Wisconsin Best Bar',
-      address: '125 Market St, Madison WI 53622'
-    },
-    {
-      id: 3,
-      coords: {
-        latitude: 43.0864198,
-        longitude: -89.1880422,
-      },
-      name: 'Wisconsin Public Place',
-      address: '323 Williamston St, Madison WI 53722'
-    },
-  ];
+  // fakeObject = [
+  //   {
+  //     id: 1,
+  //     coords: {
+  //       latitude: 43.0764198,
+  //       longitude: -89.3880422,
+  //     },
+  //     name: 'Wisconsin State Capitol',
+  //     address: '25 State St, Madison WI 53701'
+  //   },
+  //   {
+  //     id: 2,
+  //     coords: {
+  //       latitude: 43.0794198,
+  //       longitude: -89.3280422,
+  //     },
+  //     name: 'Wisconsin Best Bar',
+  //     address: '125 Market St, Madison WI 53622'
+  //   },
+  //   {
+  //     id: 3,
+  //     coords: {
+  //       latitude: 43.0864198,
+  //       longitude: -89.1880422,
+  //     },
+  //     name: 'Wisconsin Public Place',
+  //     address: '323 Williamston St, Madison WI 53722'
+  //   },
+  // ];
 
-  constructor(private objectService: GeoObjectService ) { }
+  constructor(
 
-  calculateDistance(latitude, longtitude) {
-    const lat2 = this.fakeObject[2].coords.latitude;
-    const lon2 = this.fakeObject[2].coords.longitude;
+    ) {  }
+
+  calculateDistance(latitude, longtitude, objLat, objLon) {
+    // const lat2 = this.fakeObject[2].coords.latitude;
+    // const lon2 = this.fakeObject[2].coords.longitude;
 
     const R = 6378.137; // Radius of earth in KM
-    const dLat = lat2 * Math.PI / 180 - latitude * Math.PI / 180;
-    const dLon = lon2 * Math.PI / 180 - longtitude * Math.PI / 180;
+    const dLat = objLat * Math.PI / 180 - latitude * Math.PI / 180;
+    const dLon = objLon * Math.PI / 180 - longtitude * Math.PI / 180;
     const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(latitude * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+    Math.cos(latitude * Math.PI / 180) * Math.cos(objLat * Math.PI / 180) *
     Math.sin(dLon / 2) * Math.sin(dLon / 2);
 
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));

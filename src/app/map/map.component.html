@@ -11,5 +11,16 @@
       (markerClick)="handleMarkerClick($event)">
     </agm-marker>
   </agm-map>
-  <app-checkin *ngIf="currentLatitude && currentLongtitude"></app-checkin>
+  <app-checkin
+  *ngIf="currentLatitude && currentLongtitude && geoObjects"
+  [(geoObjects)]="geoObjects"
+  [(currentLatitude)]="currentLatitude"
+  [(currentLongtitude)]="currentLongtitude"
+  (handleCoordinatesChange)="changed($event)"></app-checkin>
 </div>
+<ngx-spinner
+bdColor = "rgba(1,51,51,0.8)"
+size = "large"
+color = "#FADA5E"
+type = "pacman"
+></ngx-spinner>

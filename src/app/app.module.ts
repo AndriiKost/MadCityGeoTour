@@ -10,6 +10,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { CheckinComponent } from './map/checkin/checkin.component';
 import { CheckInService } from './services/check-in.service';
 import { GeoObjectService } from './services/geoObject.service';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { GeoObjectService } from './services/geoObject.service';
   imports: [
     BrowserModule,
     HttpClientModule,
+    NgxSpinnerModule,
     AgmCoreModule.forRoot({
       apiKey: GOOGLE_MAPS_API
     })
