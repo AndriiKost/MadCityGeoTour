@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GeoObject } from '../models/GeoObject.model';
 import { GeoObjectService } from '../services/geoObject.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-map',
@@ -13,20 +14,21 @@ export class MapComponent implements OnInit {
   currentLatitude: number;
   currentLongtitude: number;
   // Main geo objects
-  geoObjects: GeoObject[];
+  userGeoObjects: GeoObject[];
   // Use for Modal window
   currentObject: GeoObject;
   modalWindow = false;
 
   constructor(
     public geoObjectService: GeoObjectService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private authService: AuthService
     ) { }
 
   ngOnInit() {
     // Show spinner the first thing
     this.spinner.show();
-    this.getObjects();
+    this.getUserObjects();
 
     this.defineCoords();
   }
@@ -37,20 +39,33 @@ export class MapComponent implements OnInit {
     this.currentLongtitude = newValue[1];
   }
 
-  getObjects() {
-    this.geoObjectService.getAllObjects().subscribe(
-      objects => {
-        this.geoObjects = objects;
-        console.log(objects);
-      }
-    );
+  getUserObjects() {
+    this.authService.getProfile().subscribe(profile => {
+      // this.user = profile.user;
+      this.userGeoObjects = profile.user.geoObjects;
+    },
+    err => {
+      console.log(err);
+      return false;
+    }
+  );
   }
+
+  // // WARNING! THIS WILL GET A GENERAL USE OBJECT LIST, NOT USER PERSONALIZED OBJECT LIST
+  // getAllObjects() {
+  //   this.geoObjectService.getAllObjects().subscribe(
+  //     objects => {
+  //       this.geoObjects = objects;
+  //       console.log(objects);
+  //     }
+  //   );
+  // }
 
   defineCoords() {
     navigator.geolocation.getCurrentPosition((position) => {
       this.currentLatitude = position.coords.latitude;
       this.currentLongtitude = position.coords.longitude;
-      console.log(this.geoObjects, this.currentLatitude, this.currentLongtitude);
+      console.log(this.userGeoObjects, this.currentLatitude, this.currentLongtitude);
       // Hide spinner after getting coordinates
       this.spinner.hide();
     });
@@ -59,7 +74,7 @@ export class MapComponent implements OnInit {
   handleMarkerClick(event) {
 
     const id = event._id;
-    this.currentObject = this.geoObjects[id];
+    this.currentObject = this.userGeoObjects[id];
 
     if (this.modalWindow === true) {
       return;

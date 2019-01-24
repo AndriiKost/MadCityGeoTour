@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CheckInService } from 'src/app/services/check-in.service';
 import { GeoObject } from 'src/app/models/GeoObject.model';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { HttpClient } from '@angular/common/http';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-checkin',
@@ -16,13 +19,17 @@ export class CheckinComponent implements OnInit {
   @Output() handleGeoObjectChange = new EventEmitter();
 
   constructor(
-    private checkInService: CheckInService
+    private checkInService: CheckInService,
+    private spinner: NgxSpinnerService,
+    private http: HttpClient,
+    private authService: AuthService
     ) { }
 
   ngOnInit() {
   }
 
   handleCheckInClick () {
+    this.spinner.show();
     navigator.geolocation.getCurrentPosition((position) => {
       this.currentLatitude = position.coords.latitude;
       this.currentLongtitude = position.coords.longitude;
@@ -32,38 +39,43 @@ export class CheckinComponent implements OnInit {
   }
 
   performGeolocationCheckIn() {
+    // Instance of all objects
     const geoObjectsForCheckin = this.geoObjects;
-    let closestObject: GeoObject;
-
-    const distanceToClosestObject = geoObjectsForCheckin.reduce((prev, cur, index, arr) {
-      closestObject = cur;
-      const curDistance = this.checkInService
-      .calculateDistance(this.currentLatitude, this.currentLongtitude, cur.coords.latitude, cur.coords.longitude);
-      let distance = curDistance;
-
-      if (curDistance < distance) {
-        distance = curDistance;
-        closestObject = cur;
-      } else if (curDistance === undefined) {
-        distance = curDistance;
+    // Closest object
+    let closestObject;
+    // Closest object distance
+    let closestObjectDistance: number;
+    // Final closest object
+    geoObjectsForCheckin.map(cur => {
+      // Assign current object to be the closest if it's undefined
+      if (closestObject === undefined) {
         closestObject = cur;
       }
-      return distance;
+      // calculate the distance between object and a user and store it in const
+      const distanceBetweenObjectAndUser = this.checkInService
+                      .calculateDistance(this.currentLatitude, this.currentLongtitude, cur.coords.latitude, cur.coords.longitude);
+      // Assign current distance if previous is unavaiable
+      if (closestObjectDistance === undefined) {
+        closestObjectDistance = distanceBetweenObjectAndUser;
+      }
+      console.log('distanceBetweenObjectAndUser ==> ', distanceBetweenObjectAndUser);
+      // Check if current distance is lower then previous
+      if (closestObjectDistance > distanceBetweenObjectAndUser) {
+        closestObjectDistance = distanceBetweenObjectAndUser;
+        closestObject = cur;
+      }
     });
+    console.log('closestObject ==> ', closestObject);
+    console.log('closestObjectDistance ==> ', closestObjectDistance);
 
-    if (distanceToClosestObject < 40) {
-      console.log('Perform removal from db.user.objects[id] => ', closestObject);
+    // Check if distance between object and user is less or equal then 40 feet
+    if (closestObjectDistance <= 40) {
+      console.log('WOOOHOOHOOO you found  ==> ', closestObject.name, ' on the ', closestObject.address);
+      this.spinner.hide();
     } else {
-      console.log('you are', distanceToClosestObject, ' feet away from the closest object.');
+      console.log('Cant find any objects around you. Please move closer.');
+      this.spinner.hide();
     }
   }
-
-  // // CHANGE LOCATION TO CHICAGO FOR DEV PURPOSES
-  // testHandleClick() {
-  //   this.currentLatitude = 41.8333925;
-  //   this.currentLongtitude = -88.0121513;
-  //   console.log('testHandleClick lat = ', this.currentLatitude, 'long = ', this.currentLongtitude);
-  //   this.handleCoordinatesChange.emit([this.currentLatitude, this.currentLongtitude]);
-  // }
 
  }

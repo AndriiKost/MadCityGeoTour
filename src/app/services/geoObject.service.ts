@@ -14,6 +14,16 @@ export class GeoObjectService {
     public http: HttpClient
   ) { }
 
+  getUserObjects(): Observable<GeoObject[]> {
+    const url ='http://localhost:8000/profile';
+
+    return this.http.get<GeoObject[]>(url)
+    .pipe(
+      catchError(this.handleError('getUserObjects', []))
+    );
+
+  }
+
   getAllObjects(): Observable<GeoObject[]> {
     const url = 'http://localhost:8000/geo-objects/';
 

@@ -1,6 +1,26 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const config = require('../config/database');
+const Schema = mongoose.Schema;
+
+// userGeoObject Schema
+const userGeoObjectSchema = new Schema({
+  id: {
+    type: Number,
+    required: true
+  },
+  coords: {
+    latitude: {type: Number},
+    longitude: {type: Number}
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  address: {
+    type: String,
+    required: true
+  }
+});
 
 // User Schema
 const UserSchema = mongoose.Schema({
@@ -19,6 +39,7 @@ const UserSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    geoObjects: [userGeoObjectSchema]
 });
 
 const User = module.exports = mongoose.model('User', UserSchema);

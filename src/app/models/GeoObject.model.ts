@@ -6,4 +6,5 @@ export interface GeoObject {
   };
     name: string;
     address: string;
+    visited: boolean;
 }

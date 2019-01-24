@@ -1,42 +1,9 @@
 import { Injectable, Input } from '@angular/core';
-import { GeoObject } from '../models/GeoObject.model';
-import { GeoObjectService } from './geoObject.service';
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class CheckInService {
-
-  // fakeObject = [
-  //   {
-  //     id: 1,
-  //     coords: {
-  //       latitude: 43.0764198,
-  //       longitude: -89.3880422,
-  //     },
-  //     name: 'Wisconsin State Capitol',
-  //     address: '25 State St, Madison WI 53701'
-  //   },
-  //   {
-  //     id: 2,
-  //     coords: {
-  //       latitude: 43.0794198,
-  //       longitude: -89.3280422,
-  //     },
-  //     name: 'Wisconsin Best Bar',
-  //     address: '125 Market St, Madison WI 53622'
-  //   },
-  //   {
-  //     id: 3,
-  //     coords: {
-  //       latitude: 43.0864198,
-  //       longitude: -89.1880422,
-  //     },
-  //     name: 'Wisconsin Public Place',
-  //     address: '323 Williamston St, Madison WI 53722'
-  //   },
-  // ];
 
   constructor(
 

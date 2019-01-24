@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-// Require the controllers WHICH WE DID NOT CREATE YET!!
+// Require the controllers
 const geoObject_controller = require('../controllers/geoObject');
 
 

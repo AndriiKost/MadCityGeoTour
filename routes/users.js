@@ -7,13 +7,14 @@ const User = require('../models/user');
 
 // Register
 router.post('/register', (req, res, next) => {
+  console.log(req.body.geoObjects)
   let newUser = new User({
     name: req.body.name,
     email: req.body.email,
     username: req.body.username,
-    password: req.body.password
+    password: req.body.password,
+    geoObjects: req.body.geoObjects
   });
-
   User.addUser(newUser, (err, user) => {
     if(err){
       res.json({success: false, msg:'Failed to register user'});
@@ -63,4 +64,17 @@ router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res,
   res.json({user: req.user});
 });
 
+// Tag geoObject
+router.put('/:usernameID/geotag/:id', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+  console.log(req.params);
+});
+
 module.exports = router;
+
+
+// router.delete('/:id', (req, res, next) => {
+//   Post.deleteOne({ _id: req.params.id }).then(result => {
+//     console.log(result);
+//     res.status(200).json({ message: 'Post deleted!' });
+//   });
+// });

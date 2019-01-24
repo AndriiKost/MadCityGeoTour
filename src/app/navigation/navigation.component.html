@@ -12,10 +12,26 @@
           </div>
           <div class="menu-list">
             <ul>
-              <li>Account</li>
-              <li>Checklist</li>
-              <li>Map</li>
+              <li *ngIf="authService.loggedIn()"
+                [routerLink]="['/profile']"
+                [routerLinkActive]="['active']"
+                [routerLinkActiveOptions]="{exact:true}">Profile</li>
+              <li *ngIf="authService.loggedIn()">Checklist</li>
+              <li *ngIf="authService.loggedIn()"
+                [routerLink]="['/map']"
+                [routerLinkActive]="['active']"
+                [routerLinkActiveOptions]="{exact:true}">Map</li>
               <li>Rules</li>
+              <li *ngIf="!authService.loggedIn()"
+                [routerLink]="['/register']"
+                [routerLinkActive]="['active']"
+                [routerLinkActiveOptions]="{exact:true}">Register</li>
+              <li *ngIf="!authService.loggedIn()"
+                [routerLink]="['/login']"
+                [routerLinkActive]="['active']"
+                [routerLinkActiveOptions]="{exact:true}">Login</li>
+                <li *ngIf="authService.loggedIn()"
+                (click)="onLogoutClick()">Logout</li>
             </ul>
           </div>
     </div>
