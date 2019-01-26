@@ -1103,7 +1103,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-var url = 'https://madcitygeotour.herokuapp.com/;
+var url = 'https://madcitygeotour.herokuapp.com/';
 var AuthService = /** @class */ (function () {
     function AuthService(http) {
         this.http = http;
