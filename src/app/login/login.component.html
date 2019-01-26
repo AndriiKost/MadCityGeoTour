@@ -1,12 +1,19 @@
-<h2 class="page-header">Login</h2>
-<form (submit)="onLoginSubmit()">
-  <div class="form-group">
-    <label>Username</label>
-    <input type="text" class="form-control" [(ngModel)]="username" name="username">
-  </div>
-  <div>
-    <label>Password</label>
-    <input type="password" class="form-control" [(ngModel)]="password" name="password">
-  </div>
-  <input type="submit" class="btn btn-primary" value="Login">
-</form>
+<div class="header">
+  <h2>Login</h2>
+</div>
+<div class="login-form">
+  <form (submit)="onLoginSubmit()">
+    <div>
+      <label>Username</label>
+      <input type="text" class="form-control" [(ngModel)]="username" name="username">
+    </div>
+    <div>
+      <label>Password</label>
+      <input type="password" class="form-control" [(ngModel)]="password" name="password">
+    </div>
+    <input type="submit" class="action-btn" value="Login">
+  </form>
+</div>
+<div class="user-help">
+  <h4>Don't have an account? <span [routerLink]="['/register']">Register now!</span></h4>
+</div>

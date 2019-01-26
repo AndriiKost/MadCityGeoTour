@@ -8,7 +8,7 @@
     <agm-marker *ngFor="let object of userGeoObjects"
       [latitude]="object.coords.latitude"
       [longitude]="object.coords.longitude"
-      [id]="object.id"
+      [title]="object._id"
       [iconUrl]="objectMarker"
       (markerClick)="handleMarkerClick($event)">
     </agm-marker>

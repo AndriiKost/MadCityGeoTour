@@ -1,20 +1,27 @@
-<h2 class="page-header">Register</h2>
-<form (submit)="onRegisterSubmit()">
-  <div class="form-group">
-    <label>Name</label>
-    <input [(ngModel)]="name" name="name" type="text" class="form-control">
-  </div>
-  <div class="form-group">
-      <label>Username</label>
-      <input [(ngModel)]="username" name="username" type="text" class="form-control">
+<div class="header">
+  <h2>Register</h2>
+</div>
+<div class="register-form">
+  <form (submit)="onRegisterSubmit()">
+    <div>
+      <label>Name</label>
+      <input [(ngModel)]="name" name="name" type="text" class="form-control">
     </div>
-    <div class="form-group">
-        <label>Email</label>
-        <input [(ngModel)]="email" name="email" type="email" class="form-control">
+    <div>
+        <label>Username</label>
+        <input [(ngModel)]="username" name="username" type="text" class="form-control">
       </div>
-      <div class="form-group">
-          <label>Password</label>
-          <input [(ngModel)]="password" name="password" type="password" class="form-control">
-      </div>
-      <input type="submit" class="btn btn-primary" value="Submit">
-</form>
+      <div>
+          <label>Email</label>
+          <input [(ngModel)]="email" name="email" type="email" class="form-control">
+        </div>
+        <div>
+            <label>Password</label>
+            <input [(ngModel)]="password" name="password" type="password" class="form-control">
+        </div>
+        <input type="submit" class="action-btn" value="Submit">
+  </form>
+</div>
+<div class="user-help">
+  <h4>Have an account? <span [routerLink]="['/login']">Login in</span></h4>
+</div>

@@ -24,6 +24,8 @@ import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ChecklistComponent } from './checklist/checklist.component';
 import { RulesComponent } from './rules/rules.component';
+import { LandingComponent } from './landing/landing.component';
+import { FooterComponent } from './footer/footer.component';
 
 const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
@@ -32,6 +34,7 @@ const appRoutes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'checklist', component: ChecklistComponent, canActivate: [AuthGuard] },
   { path: 'rules', component: RulesComponent },
+  { path: '', component: LandingComponent },
 ];
 
 @NgModule({
@@ -45,7 +48,9 @@ const appRoutes: Routes = [
     LoginComponent,
     ProfileComponent,
     ChecklistComponent,
-    RulesComponent
+    RulesComponent,
+    LandingComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

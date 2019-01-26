@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GeoObject } from '../models/GeoObject.model';
 import { GeoObjectService } from '../services/geoObject.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -9,7 +9,7 @@ import { AuthService } from '../services/auth.service';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, OnDestroy {
   // Use from navigator
   currentLatitude: number;
   currentLongtitude: number;
@@ -21,7 +21,7 @@ export class MapComponent implements OnInit {
   notification: string;
   userMarker = 'assets/pedestrian-walking.svg';
   objectMarker = 'assets/map-pin.svg';
-  mapZoom = 15;
+  mapZoom = 10;
 
   constructor(
     public geoObjectService: GeoObjectService,
@@ -81,14 +81,18 @@ export class MapComponent implements OnInit {
   }
 
   handleMarkerClick(event) {
-    const id = event._id;
-    this.currentObject = this.userGeoObjects[id];
-    console.log('handleMarkerClick() CURRENT OBJECT => ', this.currentObject);
-    if (this.modalWindow === true) {
-      return;
-    } else {
-      this.modalWindow = true;
-    }
+    const id = event.title;
+    this.userGeoObjects.map(object => {
+      if (object._id === id) {
+        this.currentObject = object;
+        if (this.modalWindow === true) {
+          return;
+        } else {
+          this.modalWindow = true;
+        }
+      }
+    });
+
   }
 
   receiveCloseModal($event) {
@@ -104,6 +108,11 @@ export class MapComponent implements OnInit {
         return object;
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.userGeoObjects = [];
+    this.currentObject = undefined;
   }
 
 }

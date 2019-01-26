@@ -1,0 +1,57 @@
+.header h2 {
+  color: darkred;
+  text-transform: uppercase;
+  font-weight: 300;
+  text-align: left;
+  padding: 0 1em;
+}
+.register-form {
+  border: 1px solid rgb(160, 159, 159);
+  font-size: 1.2em;
+  letter-spacing: .05em;
+  border-radius: 3px;
+  margin: auto;
+  width: 50%;
+  padding: 2em 2em 5em 2em;
+}
+.register-form div {
+  padding: .5em;
+}
+input {
+  margin-right: 20%;
+  margin-left: 1em;
+  font-size: 1.2em;
+  border-radius: 5px;
+  border: 1px solid rgba(138, 17, 138, 0.5);
+  float: right;
+}
+.action-btn {
+  padding: 15px;
+  margin-left: 10px;
+  font-size: 1em;
+  border-radius: 5px;
+  border: 1px solid rgba(138, 17, 138, 0.5);
+  width: 30%;
+  float: left;
+}
+.action-btn:hover {
+  cursor: pointer;
+  color: #fff;
+  background: rgb(138, 17, 137);
+}
+.user-help {
+  padding: 1em;
+  font-weight: 100;
+  text-align: center;
+  letter-spacing: .05em;
+  font-weight: 100;
+  font-size: 1.1em;
+  color: rgba(51, 51, 51, 0.8);
+}
+.user-help span {
+  text-decoration: underline;
+  color: darkred;
+}
+.user-help span:hover {
+  cursor: pointer;
+}

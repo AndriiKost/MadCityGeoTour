@@ -117,12 +117,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _profile_profile_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./profile/profile.component */ "./src/app/profile/profile.component.ts");
 /* harmony import */ var _checklist_checklist_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./checklist/checklist.component */ "./src/app/checklist/checklist.component.ts");
 /* harmony import */ var _rules_rules_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./rules/rules.component */ "./src/app/rules/rules.component.ts");
+/* harmony import */ var _landing_landing_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./landing/landing.component */ "./src/app/landing/landing.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -155,6 +157,7 @@ var appRoutes = [
     { path: 'profile', component: _profile_profile_component__WEBPACK_IMPORTED_MODULE_22__["ProfileComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
     { path: 'checklist', component: _checklist_checklist_component__WEBPACK_IMPORTED_MODULE_23__["ChecklistComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
     { path: 'rules', component: _rules_rules_component__WEBPACK_IMPORTED_MODULE_24__["RulesComponent"] },
+    { path: '', component: _landing_landing_component__WEBPACK_IMPORTED_MODULE_25__["LandingComponent"] },
 ];
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -171,7 +174,8 @@ var AppModule = /** @class */ (function () {
                 _login_login_component__WEBPACK_IMPORTED_MODULE_21__["LoginComponent"],
                 _profile_profile_component__WEBPACK_IMPORTED_MODULE_22__["ProfileComponent"],
                 _checklist_checklist_component__WEBPACK_IMPORTED_MODULE_23__["ChecklistComponent"],
-                _rules_rules_component__WEBPACK_IMPORTED_MODULE_24__["RulesComponent"]
+                _rules_rules_component__WEBPACK_IMPORTED_MODULE_24__["RulesComponent"],
+                _landing_landing_component__WEBPACK_IMPORTED_MODULE_25__["LandingComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -335,6 +339,69 @@ var AuthGuard = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/landing/landing.component.css":
+/*!***********************************************!*\
+  !*** ./src/app/landing/landing.component.css ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".header h2 {\n  color: darkred;\n  text-transform: uppercase;\n  font-weight: 300;\n  text-align: left;\n  padding: 0 1em;\n}\n.landing-content {\n  margin-top: 23px;\n  border-top: 2px solid rgb(139,0,139);\n  display: block;\n}\n.action-btn {\n  padding: 15px;\n  margin-left: 10px;\n  font-size: 1em;\n  border-radius: 5px;\n  border: 1px solid rgba(138, 17, 138, 0.5);\n}\n.action-btn:hover {\n  cursor: pointer;\n  color: #fff;\n  background: rgb(138, 17, 137);\n}\n.intro, .rules, .action {\n  padding: 0.8em;\n}\n.action {\n  border-top: 1px solid rgba(138, 17, 138, 0.4);\n  color: darkred;\n  background-color: #f6f6f6c0;\n  text-transform: uppercase;\n  font-weight: 400;\n  font-size: 1.2em;\n  padding: 1em 2em;\n  letter-spacing: .1em\n}\n"
+
+/***/ }),
+
+/***/ "./src/app/landing/landing.component.html":
+/*!************************************************!*\
+  !*** ./src/app/landing/landing.component.html ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"header\">\n  <h2>MadCity GeoTour</h2>\n</div>\n<div class=\"landing-content\">\n  <div class=\"intro\">\n    <h4>What's this application about.</h4>\n    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>\n  </div>\n  <div class=\"action\">\n    <h4>Interested? Sign in!</h4>\n    <div class=\"2-btn\">\n      <button class=\"action-btn\" [routerLink]=\"['/register']\">Register</button>\n      <button class=\"action-btn\" [routerLink]=\"['/login']\">Log In</button>\n    </div>\n  </div>\n  <div class=\"rules\">\n    <h4>The rules are.</h4>\n    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>\n  </div>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/landing/landing.component.ts":
+/*!**********************************************!*\
+  !*** ./src/app/landing/landing.component.ts ***!
+  \**********************************************/
+/*! exports provided: LandingComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LandingComponent", function() { return LandingComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var LandingComponent = /** @class */ (function () {
+    function LandingComponent() {
+    }
+    LandingComponent.prototype.ngOnInit = function () {
+    };
+    LandingComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-landing',
+            template: __webpack_require__(/*! ./landing.component.html */ "./src/app/landing/landing.component.html"),
+            styles: [__webpack_require__(/*! ./landing.component.css */ "./src/app/landing/landing.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], LandingComponent);
+    return LandingComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/login/login.component.css":
 /*!*******************************************!*\
   !*** ./src/app/login/login.component.css ***!
@@ -342,7 +409,7 @@ var AuthGuard = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = ".header h2 {\n  color: darkred;\n  text-transform: uppercase;\n  font-weight: 300;\n  text-align: left;\n  padding: 0 1em;\n}\n.login-form {\n  border: 1px solid rgb(160, 159, 159);\n  border-radius: 3px;\n  margin: auto;\n  width: 50%;\n  padding: 2em 2em 5em 2em;\n}\n.login-form div {\n  padding: .5em;\n}\ninput {\n  margin-right: 20%;\n  margin-left: 1em;\n  font-size: 1.2em;\n  border-radius: 5px;\n  border: 1px solid rgba(138, 17, 138, 0.5);\n  float: right;\n}\n.login-form {\n  font-size: 1.2em;\n  letter-spacing: .05em;\n}\n.action-btn {\n  padding: 15px;\n  margin-left: 10px;\n  font-size: 1em;\n  border-radius: 5px;\n  border: 1px solid rgba(138, 17, 138, 0.5);\n  float: left;\n  width: 30%;\n}\n.action-btn:hover {\n  cursor: pointer;\n  color: #fff;\n  background: rgb(138, 17, 137);\n}\n.user-help {\n  padding: 1em;\n  font-weight: 100;\n  text-align: center;\n  letter-spacing: .05em;\n  font-weight: 100;\n  font-size: 1.1em;\n  color: rgba(51, 51, 51, 0.8);\n}\n.user-help span {\n  text-decoration: underline;\n  color: darkred;\n}\n.user-help span:hover {\n  cursor: pointer;\n}\n"
 
 /***/ }),
 
@@ -353,7 +420,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class=\"page-header\">Login</h2>\n<form (submit)=\"onLoginSubmit()\">\n  <div class=\"form-group\">\n    <label>Username</label>\n    <input type=\"text\" class=\"form-control\" [(ngModel)]=\"username\" name=\"username\">\n  </div>\n  <div>\n    <label>Password</label>\n    <input type=\"password\" class=\"form-control\" [(ngModel)]=\"password\" name=\"password\">\n  </div>\n  <input type=\"submit\" class=\"btn btn-primary\" value=\"Login\">\n</form>\n"
+module.exports = "<div class=\"header\">\n  <h2>Login</h2>\n</div>\n<div class=\"login-form\">\n  <form (submit)=\"onLoginSubmit()\">\n    <div>\n      <label>Username</label>\n      <input type=\"text\" class=\"form-control\" [(ngModel)]=\"username\" name=\"username\">\n    </div>\n    <div>\n      <label>Password</label>\n      <input type=\"password\" class=\"form-control\" [(ngModel)]=\"password\" name=\"password\">\n    </div>\n    <input type=\"submit\" class=\"action-btn\" value=\"Login\">\n  </form>\n</div>\n<div class=\"user-help\">\n  <h4>Don't have an account? <span [routerLink]=\"['/register']\">Register now!</span></h4>\n</div>\n"
 
 /***/ }),
 
@@ -599,7 +666,7 @@ module.exports = "agm-map {\n  height: 90vh;\n}\n"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"map-container\">\n  <app-modal-window\n    *ngIf=\"modalWindow\"\n    (closeModal)=\"receiveCloseModal($event)\"\n    [notification]=\"notification\"\n    [geoObject]=\"currentObject\"></app-modal-window>\n  <agm-map [latitude]=\"currentLatitude\" [longitude]=\"currentLongtitude\" [zoom]=\"mapZoom\">\n    <agm-marker *ngFor=\"let object of userGeoObjects\"\n      [latitude]=\"object.coords.latitude\"\n      [longitude]=\"object.coords.longitude\"\n      [id]=\"object.id\"\n      [iconUrl]=\"objectMarker\"\n      (markerClick)=\"handleMarkerClick($event)\">\n    </agm-marker>\n    <agm-marker\n      [latitude]=\"currentLatitude\"\n      [longitude]=\"currentLongtitude\"\n      [iconUrl]=\"userMarker\">\n    </agm-marker>\n  </agm-map>\n  <app-checkin\n  *ngIf=\"currentLatitude && currentLongtitude && userGeoObjects\"\n  [(geoObjects)]=\"userGeoObjects\"\n  [(currentLatitude)]=\"currentLatitude\"\n  [(currentLongtitude)]=\"currentLongtitude\"\n  (handleCoordinatesChange)=\"changed($event)\"\n  (handleNotification)=\"notificationChanged($event)\"></app-checkin>\n</div>\n<ngx-spinner\nbdColor = \"rgba(1,51,51,0.8)\"\nsize = \"large\"\ncolor = \"#FADA5E\"\ntype = \"pacman\"\n></ngx-spinner>\n"
+module.exports = "<div class=\"map-container\">\n  <app-modal-window\n    *ngIf=\"modalWindow\"\n    (closeModal)=\"receiveCloseModal($event)\"\n    [notification]=\"notification\"\n    [geoObject]=\"currentObject\"></app-modal-window>\n  <agm-map [latitude]=\"currentLatitude\" [longitude]=\"currentLongtitude\" [zoom]=\"mapZoom\">\n    <agm-marker *ngFor=\"let object of userGeoObjects\"\n      [latitude]=\"object.coords.latitude\"\n      [longitude]=\"object.coords.longitude\"\n      [title]=\"object._id\"\n      [iconUrl]=\"objectMarker\"\n      (markerClick)=\"handleMarkerClick($event)\">\n    </agm-marker>\n    <agm-marker\n      [latitude]=\"currentLatitude\"\n      [longitude]=\"currentLongtitude\"\n      [iconUrl]=\"userMarker\">\n    </agm-marker>\n  </agm-map>\n  <app-checkin\n  *ngIf=\"currentLatitude && currentLongtitude && userGeoObjects\"\n  [(geoObjects)]=\"userGeoObjects\"\n  [(currentLatitude)]=\"currentLatitude\"\n  [(currentLongtitude)]=\"currentLongtitude\"\n  (handleCoordinatesChange)=\"changed($event)\"\n  (handleNotification)=\"notificationChanged($event)\"></app-checkin>\n</div>\n<ngx-spinner\nbdColor = \"rgba(1,51,51,0.8)\"\nsize = \"large\"\ncolor = \"#FADA5E\"\ntype = \"pacman\"\n></ngx-spinner>\n"
 
 /***/ }),
 
@@ -638,7 +705,7 @@ var MapComponent = /** @class */ (function () {
         this.modalWindow = false;
         this.userMarker = 'assets/pedestrian-walking.svg';
         this.objectMarker = 'assets/map-pin.svg';
-        this.mapZoom = 15;
+        this.mapZoom = 10;
     }
     MapComponent.prototype.ngOnInit = function () {
         // Show spinner the first thing
@@ -687,15 +754,19 @@ var MapComponent = /** @class */ (function () {
         }
     };
     MapComponent.prototype.handleMarkerClick = function (event) {
-        var id = event._id;
-        this.currentObject = this.userGeoObjects[id];
-        console.log('handleMarkerClick() CURRENT OBJECT => ', this.currentObject);
-        if (this.modalWindow === true) {
-            return;
-        }
-        else {
-            this.modalWindow = true;
-        }
+        var _this = this;
+        var id = event.title;
+        this.userGeoObjects.map(function (object) {
+            if (object._id === id) {
+                _this.currentObject = object;
+                if (_this.modalWindow === true) {
+                    return;
+                }
+                else {
+                    _this.modalWindow = true;
+                }
+            }
+        });
     };
     MapComponent.prototype.receiveCloseModal = function ($event) {
         this.modalWindow = false;
@@ -709,6 +780,10 @@ var MapComponent = /** @class */ (function () {
                 return object;
             }
         });
+    };
+    MapComponent.prototype.ngOnDestroy = function () {
+        this.userGeoObjects = [];
+        this.currentObject = undefined;
     };
     MapComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -974,7 +1049,7 @@ var ProfileComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = ".header h2 {\n  color: darkred;\n  text-transform: uppercase;\n  font-weight: 300;\n  text-align: left;\n  padding: 0 1em;\n}\n.register-form {\n  border: 1px solid rgb(160, 159, 159);\n  font-size: 1.2em;\n  letter-spacing: .05em;\n  border-radius: 3px;\n  margin: auto;\n  width: 50%;\n  padding: 2em 2em 5em 2em;\n}\n.register-form div {\n  padding: .5em;\n}\ninput {\n  margin-right: 20%;\n  margin-left: 1em;\n  font-size: 1.2em;\n  border-radius: 5px;\n  border: 1px solid rgba(138, 17, 138, 0.5);\n  float: right;\n}\n.action-btn {\n  padding: 15px;\n  margin-left: 10px;\n  font-size: 1em;\n  border-radius: 5px;\n  border: 1px solid rgba(138, 17, 138, 0.5);\n  width: 30%;\n  float: left;\n}\n.action-btn:hover {\n  cursor: pointer;\n  color: #fff;\n  background: rgb(138, 17, 137);\n}\n.user-help {\n  padding: 1em;\n  font-weight: 100;\n  text-align: center;\n  letter-spacing: .05em;\n  font-weight: 100;\n  font-size: 1.1em;\n  color: rgba(51, 51, 51, 0.8);\n}\n.user-help span {\n  text-decoration: underline;\n  color: darkred;\n}\n.user-help span:hover {\n  cursor: pointer;\n}\n"
 
 /***/ }),
 
@@ -985,7 +1060,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class=\"page-header\">Register</h2>\n<form (submit)=\"onRegisterSubmit()\">\n  <div class=\"form-group\">\n    <label>Name</label>\n    <input [(ngModel)]=\"name\" name=\"name\" type=\"text\" class=\"form-control\">\n  </div>\n  <div class=\"form-group\">\n      <label>Username</label>\n      <input [(ngModel)]=\"username\" name=\"username\" type=\"text\" class=\"form-control\">\n    </div>\n    <div class=\"form-group\">\n        <label>Email</label>\n        <input [(ngModel)]=\"email\" name=\"email\" type=\"email\" class=\"form-control\">\n      </div>\n      <div class=\"form-group\">\n          <label>Password</label>\n          <input [(ngModel)]=\"password\" name=\"password\" type=\"password\" class=\"form-control\">\n      </div>\n      <input type=\"submit\" class=\"btn btn-primary\" value=\"Submit\">\n</form>\n"
+module.exports = "<div class=\"header\">\n  <h2>Register</h2>\n</div>\n<div class=\"register-form\">\n  <form (submit)=\"onRegisterSubmit()\">\n    <div>\n      <label>Name</label>\n      <input [(ngModel)]=\"name\" name=\"name\" type=\"text\" class=\"form-control\">\n    </div>\n    <div>\n        <label>Username</label>\n        <input [(ngModel)]=\"username\" name=\"username\" type=\"text\" class=\"form-control\">\n      </div>\n      <div>\n          <label>Email</label>\n          <input [(ngModel)]=\"email\" name=\"email\" type=\"email\" class=\"form-control\">\n        </div>\n        <div>\n            <label>Password</label>\n            <input [(ngModel)]=\"password\" name=\"password\" type=\"password\" class=\"form-control\">\n        </div>\n        <input type=\"submit\" class=\"action-btn\" value=\"Submit\">\n  </form>\n</div>\n<div class=\"user-help\">\n  <h4>Have an account? <span [routerLink]=\"['/login']\">Login in</span></h4>\n</div>\n"
 
 /***/ }),
 
@@ -1097,7 +1172,7 @@ var RegisterComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".header h2 {\n  color: darkred;\n  text-transform: uppercase;\n  font-weight: 300;\n  text-align: center;\n  padding: 1em;\n}\nh4 {\n  text-transform: uppercase;\n  font-weight: bold;\n  letter-spacing: 0.1em;\n}\n"
+module.exports = ".header h2 {\n  color: darkred;\n  text-transform: uppercase;\n  font-weight: 300;\n  text-align: center;\n  padding: 1em;\n}\nh4 {\n  text-transform: uppercase;\n  font-weight: bold;\n  letter-spacing: 0.1em;\n}\n.header h2 {\n  color: darkred;\n  text-transform: uppercase;\n  font-weight: 300;\n  text-align: left;\n  padding: 0 1em;\n}\n.landing-content {\n  margin-top: 23px;\n  border-top: 2px solid rgb(139,0,139);\n  display: block;\n}\n.action-btn {\n  padding: 15px;\n  margin-left: 10px;\n  font-size: 1em;\n  border-radius: 5px;\n  border: 1px solid rgba(138, 17, 138, 0.5);\n}\n.action-btn:hover {\n  cursor: pointer;\n  color: #fff;\n  background: rgb(138, 17, 137);\n}\n.intro, .rules, .action {\n  padding: 0.8em;\n}\n.action {\n  border-top: 1px solid rgba(138, 17, 138, 0.4);\n  color: darkred;\n  background-color: #f6f6f6c0;\n  text-transform: uppercase;\n  font-weight: 400;\n  font-size: 1.2em;\n  letter-spacing: .1em\n}\n"
 
 /***/ }),
 
@@ -1108,7 +1183,7 @@ module.exports = ".header h2 {\n  color: darkred;\n  text-transform: uppercase;\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"header\">\n  <h2>Rules</h2>\n</div>\n"
+module.exports = "<div class=\"header\">\n  <h2>Rules</h2>\n</div>\n<div class=\"landing-content\">\n  <div class=\"intro\">\n    <h4>The rules are.</h4>\n    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>\n  </div>\n  <div class=\"rules\">\n    <h4>Some more rules.</h4>\n    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>\n  </div>\n</div>\n"
 
 /***/ }),
 
