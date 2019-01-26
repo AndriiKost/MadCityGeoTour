@@ -18,6 +18,10 @@ const GeoObjectSchema = new Schema({
   address: {
     type: String,
     required: true
+  },
+  visited: {
+    type: Boolean,
+    required: false
   }
 });
 

@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { GeoObject } from '../models/GeoObject.model';
 
 @Component({
   selector: 'app-profile',
@@ -11,17 +8,14 @@ import { GeoObject } from '../models/GeoObject.model';
 })
 export class ProfileComponent implements OnInit {
   user: Object;
-  userGeoObjects: GeoObject[];
 
   constructor(
-    private authService: AuthService,
-    private router: Router
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
     this.authService.getProfile().subscribe(profile => {
       this.user = profile.user;
-      this.userGeoObjects = profile.user.geoObjects;
     },
     err => {
       console.log(err);

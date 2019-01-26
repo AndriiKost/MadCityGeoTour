@@ -71,6 +71,7 @@ export class CheckinComponent implements OnInit {
     // Check if distance between object and user is less or equal then 40 feet
     if (closestObjectDistance <= 40) {
       console.log('WOOOHOOHOOO you found  ==> ', closestObject.name, ' on the ', closestObject.address);
+      this.checkInService.handleCheckIn(closestObject);
       this.spinner.hide();
     } else {
       console.log('Cant find any objects around you. Please move closer.');
@@ -78,4 +79,4 @@ export class CheckinComponent implements OnInit {
     }
   }
 
- }
+}

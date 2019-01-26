@@ -16,7 +16,10 @@
                 [routerLink]="['/profile']"
                 [routerLinkActive]="['active']"
                 [routerLinkActiveOptions]="{exact:true}">Profile</li>
-              <li *ngIf="authService.loggedIn()">Checklist</li>
+              <li *ngIf="authService.loggedIn()"
+                [routerLink]="['/checklist']"
+                [routerLinkActive]="['active']"
+                [routerLinkActiveOptions]="{exact:true}">Checklist</li>
               <li *ngIf="authService.loggedIn()"
                 [routerLink]="['/map']"
                 [routerLinkActive]="['active']"

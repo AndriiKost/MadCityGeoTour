@@ -1,0 +1,12 @@
+<div class="header">
+    <h2>To Check</h2>
+</div>
+<div class="checklist-container">
+  <div class="checklist-item" *ngFor="let object of userGeoObjects" [ngClass]="!object.visited ? 'toCheck' : 'checked'">
+    <!-- <div class="checklist-content" *ngIf="!object.visited"> -->
+    <div class="checklist-content">
+      <h4>{{object.name}}</h4>
+      <p>{{object.address}}</p>
+    </div>
+  </div>
+</div>

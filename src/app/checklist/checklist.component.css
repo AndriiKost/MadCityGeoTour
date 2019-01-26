@@ -1,0 +1,31 @@
+.checklist-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.checklist-item {
+  margin: 10px;
+  padding: 10px;
+  border-left: 1px solid rgb(138, 17, 137);
+  border-bottom: 1px solid rgb(138, 17, 137);
+  border-radius: 5px;
+}
+.header h2 {
+  color: darkred;
+  text-transform: uppercase;
+  font-weight: 300;
+  text-align: center;
+  padding: 1em;
+}
+.toCheck {
+
+}
+.checked {
+  cursor: not-allowed;
+  color: rgb(185, 184, 184);
+  background: rgba(69, 3, 59, 0.5);
+}
+h4 {
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+}

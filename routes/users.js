@@ -13,7 +13,7 @@ router.post('/register', (req, res, next) => {
     email: req.body.email,
     username: req.body.username,
     password: req.body.password,
-    geoObjects: req.body.geoObjects
+    geoObjects: req.body.geoObjects,
   });
   User.addUser(newUser, (err, user) => {
     if(err){
@@ -64,17 +64,23 @@ router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res,
   res.json({user: req.user});
 });
 
-// Tag geoObject
-router.put('/:usernameID/geotag/:id', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-  console.log(req.params);
+// // Tag geoObject
+router.get('/:userID/geotag/:objectID', passport.authenticate('jwt', {session:false}), (req, res, next) => {
+  const userID = req.params.userID
+  const objectID = req.params.objectID;
+
+  User.findOne({_id: userID}, 'geoObjects', function(err, objects) {
+    objects.geoObjects.map(object => {
+      if (object.id == objectID) {
+        object.visited = true;
+      }
+    })
+    objects.save(function (err){
+      if(err) {
+        console.error('ERROR! =', err);
+    }
+    })
+  });
 });
 
 module.exports = router;
-
-
-// router.delete('/:id', (req, res, next) => {
-//   Post.deleteOne({ _id: req.params.id }).then(result => {
-//     console.log(result);
-//     res.status(200).json({ message: 'Post deleted!' });
-//   });
-// });

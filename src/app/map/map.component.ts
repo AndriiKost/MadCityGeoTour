@@ -41,8 +41,13 @@ export class MapComponent implements OnInit {
 
   getUserObjects() {
     this.authService.getProfile().subscribe(profile => {
-      // this.user = profile.user;
-      this.userGeoObjects = profile.user.geoObjects;
+      // Filter User Personalized Objects by visited: bool property
+      this.userGeoObjects = profile.user.geoObjects.filter(object => {
+        if (!object.visited) {
+          return object;
+        }
+      });
+      console.log('AFTER FILTER ===> ', this.userGeoObjects);
     },
     err => {
       console.log(err);

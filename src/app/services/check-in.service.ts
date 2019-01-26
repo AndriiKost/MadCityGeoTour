@@ -1,4 +1,9 @@
-import { Injectable, Input } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
+import { GeoObject } from '../models/GeoObject.model';
+import { AuthService } from './auth.service';
+
+const url = 'http://localhost:8000/users/';
 
 @Injectable({
   providedIn: 'root'
@@ -6,13 +11,11 @@ import { Injectable, Input } from '@angular/core';
 export class CheckInService {
 
   constructor(
-
+    private http: Http,
+    private authService: AuthService
     ) {  }
 
   calculateDistance(latitude, longtitude, objLat, objLon) {
-    // const lat2 = this.fakeObject[2].coords.latitude;
-    // const lon2 = this.fakeObject[2].coords.longitude;
-
     const R = 6378.137; // Radius of earth in KM
     const dLat = objLat * Math.PI / 180 - latitude * Math.PI / 180;
     const dLon = objLon * Math.PI / 180 - longtitude * Math.PI / 180;
@@ -24,40 +27,35 @@ export class CheckInService {
     const d = R * c;
     return Math.round((d * 1000 * 3.2808));
 }
+
+handleCheckIn(object: GeoObject) {
+  this.authService.getProfile().subscribe(profile => {
+    this.authService.tagGeoObject(object, profile.user._id).subscribe(data => {
+      console.log('handleCheckIn => ', data);
+    });
+  },
+  err => {
+    console.log(err);
+    return false;
+  }
+);
 }
 
-// initialCheckInHandler = () => {
-//       this.state.buckies.reduce((lowest, cur) => {
-//       // assign first element to the checkable object if it has lng and lat
-//       lowest.lat && lowest.lng ? cur = lowest : null;
+// tagGeoObject(object: GeoObject, profileID) {
+//   const headers = new Headers();
+//   this.authService.loadToken();
+//   headers.append('Authorization', this.authService.authToken);
+//   headers.append('Content-Type', 'application/json');
 
-//       if (cur.lat !== undefined || cur.lng !== undefined) {
-//         const distanceFunc = this.findClosestBucky(this.props.lat,this.props.lng, cur.lat, cur.lng, cur.id);
-//         // manual coordinates for testing
-//         // const distanceFunc = this.findClosestBucky(43.074119262953495,-89.45224463939667, cur.lat, cur.lng, cur.id);
+//   const newGeoObject = object;
+//   newGeoObject.visited = true;
 
-//         // check if lowest is same as rendered
-//         if (distanceFunc > lowest) {
-//           return lowest
-//         }  else {
-//           this.setState({ buckyToRemove: parseInt(cur.id.slice(0, -1)) - 1, buckyNameTagged: cur.name })
-//           return distanceFunc
-//         }
-//       } else {
-//         return lowest
-//       }
-//     })
-//     closest ? closest < 45 ? ( db.updateScore(), db.removeBuckyFromTheUserList(this.state.buckyToRemove), this.setState({distance: 'Congratulations! You have tagged ' + this.state.buckyNameTagged + '!'}) ) : this.setState({distance: 'Can not find any Mascot near you. You are ' + closest + ' feet away'}) : null;
+//   this.http.get(url + profileID + '/geotag/' + object.id, {headers: headers})
+//   .subscribe(response => {
+//     console.log('RESPONSE FROM HTTP =>', response);
+//   });
+
 // }
 
-// findClosestBucky = (lat1, lon1, lat2, lon2) => {  // generally used geo measurement function
-//   let R = 6378.137; // Radius of earth in KM
-//   let dLat = lat2 * Math.PI / 180 - lat1 * Math.PI / 180;
-//   let dLon = lon2 * Math.PI / 180 - lon1 * Math.PI / 180;
-//   let a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-//   Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-//   Math.sin(dLon/2) * Math.sin(dLon/2);
-//   let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-//   let d = R * c;
-//   return Math.round((d * 1000 * 3.2808));
-// }
+
+}
