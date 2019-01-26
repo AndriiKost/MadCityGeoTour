@@ -15,7 +15,8 @@ export class GeoObjectService {
   ) { }
 
   getUserObjects(): Observable<GeoObject[]> {
-    const url ='http://localhost:8000/profile';
+    // const url ='http://localhost:8000/profile';
+    const url = 'https://madcitygeotour.herokuapp.com/profile';
 
     return this.http.get<GeoObject[]>(url)
     .pipe(
@@ -25,7 +26,8 @@ export class GeoObjectService {
   }
 
   getAllObjects(): Observable<GeoObject[]> {
-    const url = 'http://localhost:8000/geo-objects/';
+    // const url = 'http://localhost:8000/geo-objects/';
+    const url = 'https://madcitygeotour.herokuapp.com/geo-objects/';
 
     return this.http.get<GeoObject[]>(url)
               .pipe(
