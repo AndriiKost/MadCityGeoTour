@@ -93,6 +93,8 @@ export class MapComponent implements OnInit {
     this.modalWindow = false;
     this.notification = '';
     this.currentObject = undefined;
+    this.getUserObjects();
+    console.log(this.userGeoObjects);
   }
 
 }
