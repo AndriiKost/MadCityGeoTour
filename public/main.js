@@ -1103,7 +1103,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-var url = 'http://localhost:8000/';
+var url = 'https://madcitygeotour.herokuapp.com/;
 var AuthService = /** @class */ (function () {
     function AuthService(http) {
         this.http = http;
@@ -1196,7 +1196,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-var url = 'http://localhost:8000/users/';
+var url = 'https://madcitygeotour.herokuapp.com/users/';
 var CheckInService = /** @class */ (function () {
     function CheckInService(http, authService) {
         this.http = http;
@@ -1270,12 +1270,12 @@ var GeoObjectService = /** @class */ (function () {
         this.http = http;
     }
     GeoObjectService.prototype.getUserObjects = function () {
-        var url = 'http://localhost:8000/profile';
+        var url = 'https://madcitygeotour.herokuapp.com/profile';
         return this.http.get(url)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError('getUserObjects', [])));
     };
     GeoObjectService.prototype.getAllObjects = function () {
-        var url = 'http://localhost:8000/geo-objects/';
+        var url = 'https://madcitygeotour.herokuapp.com/geo-objects/';
         return this.http.get(url)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError('getAllObjects', [])));
     };
