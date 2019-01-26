@@ -1,0 +1,12 @@
+.header h2 {
+  color: darkred;
+  text-transform: uppercase;
+  font-weight: 300;
+  text-align: center;
+  padding: 1em;
+}
+h4 {
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+}

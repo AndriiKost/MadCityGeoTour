@@ -4,12 +4,18 @@
     (closeModal)="receiveCloseModal($event)"
     [notification]="notification"
     [geoObject]="currentObject"></app-modal-window>
-  <agm-map [latitude]="currentLatitude" [longitude]="currentLongtitude">
+  <agm-map [latitude]="currentLatitude" [longitude]="currentLongtitude" [zoom]="mapZoom">
     <agm-marker *ngFor="let object of userGeoObjects"
       [latitude]="object.coords.latitude"
       [longitude]="object.coords.longitude"
       [id]="object.id"
+      [iconUrl]="objectMarker"
       (markerClick)="handleMarkerClick($event)">
+    </agm-marker>
+    <agm-marker
+      [latitude]="currentLatitude"
+      [longitude]="currentLongtitude"
+      [iconUrl]="userMarker">
     </agm-marker>
   </agm-map>
   <app-checkin

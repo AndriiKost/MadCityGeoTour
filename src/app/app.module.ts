@@ -23,13 +23,15 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ChecklistComponent } from './checklist/checklist.component';
+import { RulesComponent } from './rules/rules.component';
 
 const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'map', component: MapComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-  { path: 'checklist', component: ChecklistComponent, canActivate: [AuthGuard] }
+  { path: 'checklist', component: ChecklistComponent, canActivate: [AuthGuard] },
+  { path: 'rules', component: RulesComponent },
 ];
 
 @NgModule({
@@ -42,7 +44,8 @@ const appRoutes: Routes = [
     RegisterComponent,
     LoginComponent,
     ProfileComponent,
-    ChecklistComponent
+    ChecklistComponent,
+    RulesComponent
   ],
   imports: [
     BrowserModule,

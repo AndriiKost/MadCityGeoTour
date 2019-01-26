@@ -19,6 +19,9 @@ export class MapComponent implements OnInit {
   currentObject: GeoObject;
   modalWindow = false;
   notification: string;
+  userMarker = 'assets/pedestrian-walking.svg';
+  objectMarker = 'assets/map-pin.svg';
+  mapZoom = 15;
 
   constructor(
     public geoObjectService: GeoObjectService,
@@ -48,7 +51,7 @@ export class MapComponent implements OnInit {
           return object;
         }
       });
-      console.log('AFTER FILTER ===> ', this.userGeoObjects);
+      // console.log('AFTER FILTER ===> ', this.userGeoObjects);
     },
     err => {
       console.log(err);
@@ -61,7 +64,6 @@ export class MapComponent implements OnInit {
     navigator.geolocation.getCurrentPosition((position) => {
       this.currentLatitude = position.coords.latitude;
       this.currentLongtitude = position.coords.longitude;
-      console.log(this.userGeoObjects, this.currentLatitude, this.currentLongtitude);
       // Hide spinner after getting coordinates
       this.spinner.hide();
     });
@@ -81,7 +83,7 @@ export class MapComponent implements OnInit {
   handleMarkerClick(event) {
     const id = event._id;
     this.currentObject = this.userGeoObjects[id];
-
+    console.log('handleMarkerClick() CURRENT OBJECT => ', this.currentObject);
     if (this.modalWindow === true) {
       return;
     } else {
@@ -92,9 +94,16 @@ export class MapComponent implements OnInit {
   receiveCloseModal($event) {
     this.modalWindow = false;
     this.notification = '';
-    this.currentObject = undefined;
-    this.getUserObjects();
-    console.log(this.userGeoObjects);
+    this.currentObject = null;
+    this.filterByPositionFalse();
+  }
+
+  filterByPositionFalse() {
+    this.userGeoObjects = this.userGeoObjects.filter(object => {
+      if (!object.visited) {
+        return object;
+      }
+    });
   }
 
 }

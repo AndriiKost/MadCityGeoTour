@@ -27,7 +27,7 @@ const port = process.env.PORT || 8000;
 app.use(cors());
 
 // Set Static Folder
-// app.use(express.static(path.join(__dirname, 'src')));
+  // app.use(express.static(path.join(__dirname, 'src')));
 app.use(express.static(__dirname + '/public'))
 
 // Body Parser Middleware
@@ -53,6 +53,7 @@ app.use('/geo-objects', geoObjects);
 // Any other route redirect to the index page
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'));
+    // res.sendFile(path.join(__dirname, 'src/index.html'));
 })
 
 // Start Server

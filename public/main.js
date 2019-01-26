@@ -116,6 +116,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
 /* harmony import */ var _profile_profile_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./profile/profile.component */ "./src/app/profile/profile.component.ts");
 /* harmony import */ var _checklist_checklist_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./checklist/checklist.component */ "./src/app/checklist/checklist.component.ts");
+/* harmony import */ var _rules_rules_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./rules/rules.component */ "./src/app/rules/rules.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -146,12 +147,14 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
 var appRoutes = [
     { path: 'register', component: _register_register_component__WEBPACK_IMPORTED_MODULE_20__["RegisterComponent"] },
     { path: 'login', component: _login_login_component__WEBPACK_IMPORTED_MODULE_21__["LoginComponent"] },
     { path: 'map', component: _map_map_component__WEBPACK_IMPORTED_MODULE_10__["MapComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
     { path: 'profile', component: _profile_profile_component__WEBPACK_IMPORTED_MODULE_22__["ProfileComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
-    { path: 'checklist', component: _checklist_checklist_component__WEBPACK_IMPORTED_MODULE_23__["ChecklistComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] }
+    { path: 'checklist', component: _checklist_checklist_component__WEBPACK_IMPORTED_MODULE_23__["ChecklistComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_19__["AuthGuard"]] },
+    { path: 'rules', component: _rules_rules_component__WEBPACK_IMPORTED_MODULE_24__["RulesComponent"] },
 ];
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -167,7 +170,8 @@ var AppModule = /** @class */ (function () {
                 _register_register_component__WEBPACK_IMPORTED_MODULE_20__["RegisterComponent"],
                 _login_login_component__WEBPACK_IMPORTED_MODULE_21__["LoginComponent"],
                 _profile_profile_component__WEBPACK_IMPORTED_MODULE_22__["ProfileComponent"],
-                _checklist_checklist_component__WEBPACK_IMPORTED_MODULE_23__["ChecklistComponent"]
+                _checklist_checklist_component__WEBPACK_IMPORTED_MODULE_23__["ChecklistComponent"],
+                _rules_rules_component__WEBPACK_IMPORTED_MODULE_24__["RulesComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -595,7 +599,7 @@ module.exports = "agm-map {\n  height: 90vh;\n}\n"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"map-container\">\n  <app-modal-window\n    *ngIf=\"modalWindow\"\n    (closeModal)=\"receiveCloseModal($event)\"\n    [notification]=\"notification\"\n    [geoObject]=\"currentObject\"></app-modal-window>\n  <agm-map [latitude]=\"currentLatitude\" [longitude]=\"currentLongtitude\">\n    <agm-marker *ngFor=\"let object of userGeoObjects\"\n      [latitude]=\"object.coords.latitude\"\n      [longitude]=\"object.coords.longitude\"\n      [id]=\"object.id\"\n      (markerClick)=\"handleMarkerClick($event)\">\n    </agm-marker>\n  </agm-map>\n  <app-checkin\n  *ngIf=\"currentLatitude && currentLongtitude && userGeoObjects\"\n  [(geoObjects)]=\"userGeoObjects\"\n  [(currentLatitude)]=\"currentLatitude\"\n  [(currentLongtitude)]=\"currentLongtitude\"\n  (handleCoordinatesChange)=\"changed($event)\"\n  (handleNotification)=\"notificationChanged($event)\"></app-checkin>\n</div>\n<ngx-spinner\nbdColor = \"rgba(1,51,51,0.8)\"\nsize = \"large\"\ncolor = \"#FADA5E\"\ntype = \"pacman\"\n></ngx-spinner>\n"
+module.exports = "<div class=\"map-container\">\n  <app-modal-window\n    *ngIf=\"modalWindow\"\n    (closeModal)=\"receiveCloseModal($event)\"\n    [notification]=\"notification\"\n    [geoObject]=\"currentObject\"></app-modal-window>\n  <agm-map [latitude]=\"currentLatitude\" [longitude]=\"currentLongtitude\" [zoom]=\"mapZoom\">\n    <agm-marker *ngFor=\"let object of userGeoObjects\"\n      [latitude]=\"object.coords.latitude\"\n      [longitude]=\"object.coords.longitude\"\n      [id]=\"object.id\"\n      [iconUrl]=\"objectMarker\"\n      (markerClick)=\"handleMarkerClick($event)\">\n    </agm-marker>\n    <agm-marker\n      [latitude]=\"currentLatitude\"\n      [longitude]=\"currentLongtitude\"\n      [iconUrl]=\"userMarker\">\n    </agm-marker>\n  </agm-map>\n  <app-checkin\n  *ngIf=\"currentLatitude && currentLongtitude && userGeoObjects\"\n  [(geoObjects)]=\"userGeoObjects\"\n  [(currentLatitude)]=\"currentLatitude\"\n  [(currentLongtitude)]=\"currentLongtitude\"\n  (handleCoordinatesChange)=\"changed($event)\"\n  (handleNotification)=\"notificationChanged($event)\"></app-checkin>\n</div>\n<ngx-spinner\nbdColor = \"rgba(1,51,51,0.8)\"\nsize = \"large\"\ncolor = \"#FADA5E\"\ntype = \"pacman\"\n></ngx-spinner>\n"
 
 /***/ }),
 
@@ -632,6 +636,9 @@ var MapComponent = /** @class */ (function () {
         this.spinner = spinner;
         this.authService = authService;
         this.modalWindow = false;
+        this.userMarker = 'assets/pedestrian-walking.svg';
+        this.objectMarker = 'assets/map-pin.svg';
+        this.mapZoom = 15;
     }
     MapComponent.prototype.ngOnInit = function () {
         // Show spinner the first thing
@@ -653,7 +660,7 @@ var MapComponent = /** @class */ (function () {
                     return object;
                 }
             });
-            console.log('AFTER FILTER ===> ', _this.userGeoObjects);
+            // console.log('AFTER FILTER ===> ', this.userGeoObjects);
         }, function (err) {
             console.log(err);
             return false;
@@ -664,7 +671,6 @@ var MapComponent = /** @class */ (function () {
         navigator.geolocation.getCurrentPosition(function (position) {
             _this.currentLatitude = position.coords.latitude;
             _this.currentLongtitude = position.coords.longitude;
-            console.log(_this.userGeoObjects, _this.currentLatitude, _this.currentLongtitude);
             // Hide spinner after getting coordinates
             _this.spinner.hide();
         });
@@ -683,6 +689,7 @@ var MapComponent = /** @class */ (function () {
     MapComponent.prototype.handleMarkerClick = function (event) {
         var id = event._id;
         this.currentObject = this.userGeoObjects[id];
+        console.log('handleMarkerClick() CURRENT OBJECT => ', this.currentObject);
         if (this.modalWindow === true) {
             return;
         }
@@ -693,9 +700,15 @@ var MapComponent = /** @class */ (function () {
     MapComponent.prototype.receiveCloseModal = function ($event) {
         this.modalWindow = false;
         this.notification = '';
-        this.currentObject = undefined;
-        this.getUserObjects();
-        console.log(this.userGeoObjects);
+        this.currentObject = null;
+        this.filterByPositionFalse();
+    };
+    MapComponent.prototype.filterByPositionFalse = function () {
+        this.userGeoObjects = this.userGeoObjects.filter(function (object) {
+            if (!object.visited) {
+                return object;
+            }
+        });
     };
     MapComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -811,7 +824,7 @@ module.exports = ".nav-menu{\n  position: absolute;\n  top: 0;\n  right: 0;\n  p
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"nav-menu\">\n    <div class=\"container\" (click)=\"changeStyleClass()\" [ngClass]=\"status ? 'change' : null\">\n        <div class=\"bar1\"></div>\n        <div class=\"bar2\"></div>\n        <div class=\"bar3\"></div>\n      </div>\n    <div *ngIf=\"status\" class=\"menu-content\">\n        <div class=\"container\" (click)=\"changeStyleClass()\" [ngClass]=\"status ? 'change' : null\">\n            <div class=\"bar1\"></div>\n            <div class=\"bar2\"></div>\n            <div class=\"bar3\"></div>\n          </div>\n          <div class=\"menu-list\">\n            <ul>\n              <li *ngIf=\"authService.loggedIn()\"\n                [routerLink]=\"['/profile']\"\n                [routerLinkActive]=\"['active']\"\n                [routerLinkActiveOptions]=\"{exact:true}\">Profile</li>\n              <li *ngIf=\"authService.loggedIn()\"\n                [routerLink]=\"['/checklist']\"\n                [routerLinkActive]=\"['active']\"\n                [routerLinkActiveOptions]=\"{exact:true}\">Checklist</li>\n              <li *ngIf=\"authService.loggedIn()\"\n                [routerLink]=\"['/map']\"\n                [routerLinkActive]=\"['active']\"\n                [routerLinkActiveOptions]=\"{exact:true}\">Map</li>\n              <li>Rules</li>\n              <li *ngIf=\"!authService.loggedIn()\"\n                [routerLink]=\"['/register']\"\n                [routerLinkActive]=\"['active']\"\n                [routerLinkActiveOptions]=\"{exact:true}\">Register</li>\n              <li *ngIf=\"!authService.loggedIn()\"\n                [routerLink]=\"['/login']\"\n                [routerLinkActive]=\"['active']\"\n                [routerLinkActiveOptions]=\"{exact:true}\">Login</li>\n                <li *ngIf=\"authService.loggedIn()\"\n                (click)=\"onLogoutClick()\">Logout</li>\n            </ul>\n          </div>\n    </div>\n</div>\n"
+module.exports = "<div class=\"nav-menu\">\n    <div class=\"container\" (click)=\"changeStyleClass()\" [ngClass]=\"status ? 'change' : null\">\n        <div class=\"bar1\"></div>\n        <div class=\"bar2\"></div>\n        <div class=\"bar3\"></div>\n      </div>\n    <div *ngIf=\"status\" class=\"menu-content\">\n        <div class=\"container\" (click)=\"changeStyleClass()\" [ngClass]=\"status ? 'change' : null\">\n            <div class=\"bar1\"></div>\n            <div class=\"bar2\"></div>\n            <div class=\"bar3\"></div>\n          </div>\n          <div class=\"menu-list\">\n            <ul>\n              <li *ngIf=\"authService.loggedIn()\"\n                [routerLink]=\"['/profile']\"\n                [routerLinkActive]=\"['active']\"\n                [routerLinkActiveOptions]=\"{exact:true}\">Profile</li>\n              <li *ngIf=\"authService.loggedIn()\"\n                [routerLink]=\"['/checklist']\"\n                [routerLinkActive]=\"['active']\"\n                [routerLinkActiveOptions]=\"{exact:true}\">Checklist</li>\n              <li *ngIf=\"authService.loggedIn()\"\n                [routerLink]=\"['/map']\"\n                [routerLinkActive]=\"['active']\"\n                [routerLinkActiveOptions]=\"{exact:true}\">Map</li>\n              <li [routerLink]=\"['/rules']\"\n                [routerLinkActive]=\"['active']\"\n                [routerLinkActiveOptions]=\"{exact:true}\">Rules</li>\n              <li *ngIf=\"!authService.loggedIn()\"\n                [routerLink]=\"['/register']\"\n                [routerLinkActive]=\"['active']\"\n                [routerLinkActiveOptions]=\"{exact:true}\">Register</li>\n              <li *ngIf=\"!authService.loggedIn()\"\n                [routerLink]=\"['/login']\"\n                [routerLinkActive]=\"['active']\"\n                [routerLinkActiveOptions]=\"{exact:true}\">Login</li>\n                <li *ngIf=\"authService.loggedIn()\"\n                (click)=\"onLogoutClick()\">Logout</li>\n            </ul>\n          </div>\n    </div>\n</div>\n"
 
 /***/ }),
 
@@ -1071,6 +1084,69 @@ var RegisterComponent = /** @class */ (function () {
             _services_geoObject_service__WEBPACK_IMPORTED_MODULE_5__["GeoObjectService"]])
     ], RegisterComponent);
     return RegisterComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/rules/rules.component.css":
+/*!*******************************************!*\
+  !*** ./src/app/rules/rules.component.css ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".header h2 {\n  color: darkred;\n  text-transform: uppercase;\n  font-weight: 300;\n  text-align: center;\n  padding: 1em;\n}\nh4 {\n  text-transform: uppercase;\n  font-weight: bold;\n  letter-spacing: 0.1em;\n}\n"
+
+/***/ }),
+
+/***/ "./src/app/rules/rules.component.html":
+/*!********************************************!*\
+  !*** ./src/app/rules/rules.component.html ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"header\">\n  <h2>Rules</h2>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/rules/rules.component.ts":
+/*!******************************************!*\
+  !*** ./src/app/rules/rules.component.ts ***!
+  \******************************************/
+/*! exports provided: RulesComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RulesComponent", function() { return RulesComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var RulesComponent = /** @class */ (function () {
+    function RulesComponent() {
+    }
+    RulesComponent.prototype.ngOnInit = function () {
+    };
+    RulesComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-rules',
+            template: __webpack_require__(/*! ./rules.component.html */ "./src/app/rules/rules.component.html"),
+            styles: [__webpack_require__(/*! ./rules.component.css */ "./src/app/rules/rules.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], RulesComponent);
+    return RulesComponent;
 }());
 
 

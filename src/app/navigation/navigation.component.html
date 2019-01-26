@@ -24,7 +24,9 @@
                 [routerLink]="['/map']"
                 [routerLinkActive]="['active']"
                 [routerLinkActiveOptions]="{exact:true}">Map</li>
-              <li>Rules</li>
+              <li [routerLink]="['/rules']"
+                [routerLinkActive]="['active']"
+                [routerLinkActiveOptions]="{exact:true}">Rules</li>
               <li *ngIf="!authService.loggedIn()"
                 [routerLink]="['/register']"
                 [routerLinkActive]="['active']"
