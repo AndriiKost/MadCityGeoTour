@@ -118,12 +118,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _checklist_checklist_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./checklist/checklist.component */ "./src/app/checklist/checklist.component.ts");
 /* harmony import */ var _rules_rules_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./rules/rules.component */ "./src/app/rules/rules.component.ts");
 /* harmony import */ var _landing_landing_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./landing/landing.component */ "./src/app/landing/landing.component.ts");
+/* harmony import */ var _footer_footer_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./footer/footer.component */ "./src/app/footer/footer.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -175,7 +177,8 @@ var AppModule = /** @class */ (function () {
                 _profile_profile_component__WEBPACK_IMPORTED_MODULE_22__["ProfileComponent"],
                 _checklist_checklist_component__WEBPACK_IMPORTED_MODULE_23__["ChecklistComponent"],
                 _rules_rules_component__WEBPACK_IMPORTED_MODULE_24__["RulesComponent"],
-                _landing_landing_component__WEBPACK_IMPORTED_MODULE_25__["LandingComponent"]
+                _landing_landing_component__WEBPACK_IMPORTED_MODULE_25__["LandingComponent"],
+                _footer_footer_component__WEBPACK_IMPORTED_MODULE_26__["FooterComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -288,6 +291,69 @@ var ChecklistComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/footer/footer.component.css":
+/*!*********************************************!*\
+  !*** ./src/app/footer/footer.component.css ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".footer {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  padding: .5em;\n  border-top: 1px solid rgba(46, 46, 46, 0.7);\n  color: rgba(46, 46, 46, 0.6);\n  text-align: right;\n  letter-spacing: .1em;\n  text-transform: lowercase;\n  padding-right: 2em;\n}\n.footer a {\n  color: darkred;\n  text-transform: capitalize;\n}\n"
+
+/***/ }),
+
+/***/ "./src/app/footer/footer.component.html":
+/*!**********************************************!*\
+  !*** ./src/app/footer/footer.component.html ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"footer\">\n  - Developed by <a href=\"https://andriikost-portfolio.herokuapp.com\" target=\"_blank\">Delian Digital</a> in 2019 -\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/footer/footer.component.ts":
+/*!********************************************!*\
+  !*** ./src/app/footer/footer.component.ts ***!
+  \********************************************/
+/*! exports provided: FooterComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FooterComponent", function() { return FooterComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var FooterComponent = /** @class */ (function () {
+    function FooterComponent() {
+    }
+    FooterComponent.prototype.ngOnInit = function () {
+    };
+    FooterComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-footer',
+            template: __webpack_require__(/*! ./footer.component.html */ "./src/app/footer/footer.component.html"),
+            styles: [__webpack_require__(/*! ./footer.component.css */ "./src/app/footer/footer.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], FooterComponent);
+    return FooterComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/guards/auth.guard.ts":
 /*!**************************************!*\
   !*** ./src/app/guards/auth.guard.ts ***!
@@ -357,7 +423,7 @@ module.exports = ".header h2 {\n  color: darkred;\n  text-transform: uppercase;\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"header\">\n  <h2>MadCity GeoTour</h2>\n</div>\n<div class=\"landing-content\">\n  <div class=\"intro\">\n    <h4>What's this application about.</h4>\n    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>\n  </div>\n  <div class=\"action\">\n    <h4>Interested? Sign in!</h4>\n    <div class=\"2-btn\">\n      <button class=\"action-btn\" [routerLink]=\"['/register']\">Register</button>\n      <button class=\"action-btn\" [routerLink]=\"['/login']\">Log In</button>\n    </div>\n  </div>\n  <div class=\"rules\">\n    <h4>The rules are.</h4>\n    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>\n  </div>\n</div>\n"
+module.exports = "<div class=\"header\">\n  <h2>MadCity GeoTour</h2>\n</div>\n<div class=\"landing-content\">\n  <div class=\"intro\">\n    <h4>What's this application about.</h4>\n    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>\n  </div>\n  <div class=\"action\">\n    <h4>Interested? Sign in!</h4>\n    <div class=\"2-btn\">\n      <button class=\"action-btn\" [routerLink]=\"['/register']\">Register</button>\n      <button class=\"action-btn\" [routerLink]=\"['/login']\">Log In</button>\n    </div>\n  </div>\n  <div class=\"rules\">\n    <h4>The rules are.</h4>\n    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>\n  </div>\n</div>\n<app-footer></app-footer>\n"
 
 /***/ }),
 
