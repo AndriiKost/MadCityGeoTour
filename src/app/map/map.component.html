@@ -2,6 +2,7 @@
   <app-modal-window
     *ngIf="modalWindow"
     (closeModal)="receiveCloseModal($event)"
+    [notification]="notification"
     [geoObject]="currentObject"></app-modal-window>
   <agm-map [latitude]="currentLatitude" [longitude]="currentLongtitude">
     <agm-marker *ngFor="let object of userGeoObjects"
@@ -16,7 +17,8 @@
   [(geoObjects)]="userGeoObjects"
   [(currentLatitude)]="currentLatitude"
   [(currentLongtitude)]="currentLongtitude"
-  (handleCoordinatesChange)="changed($event)"></app-checkin>
+  (handleCoordinatesChange)="changed($event)"
+  (handleNotification)="notificationChanged($event)"></app-checkin>
 </div>
 <ngx-spinner
 bdColor = "rgba(1,51,51,0.8)"

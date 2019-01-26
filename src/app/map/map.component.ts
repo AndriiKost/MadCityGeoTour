@@ -18,6 +18,7 @@ export class MapComponent implements OnInit {
   // Use for Modal window
   currentObject: GeoObject;
   modalWindow = false;
+  notification: string;
 
   constructor(
     public geoObjectService: GeoObjectService,
@@ -56,16 +57,6 @@ export class MapComponent implements OnInit {
   );
   }
 
-  // // WARNING! THIS WILL GET A GENERAL USE OBJECT LIST, NOT USER PERSONALIZED OBJECT LIST
-  // getAllObjects() {
-  //   this.geoObjectService.getAllObjects().subscribe(
-  //     objects => {
-  //       this.geoObjects = objects;
-  //       console.log(objects);
-  //     }
-  //   );
-  // }
-
   defineCoords() {
     navigator.geolocation.getCurrentPosition((position) => {
       this.currentLatitude = position.coords.latitude;
@@ -76,8 +67,18 @@ export class MapComponent implements OnInit {
     });
   }
 
-  handleMarkerClick(event) {
+  notificationChanged(event) {
+    // Set notification
+    this.notification = event;
+    // Open modal window
+    if (this.modalWindow === true) {
+      return;
+    } else if (this.notification !== '') {
+      this.modalWindow = true;
+    }
+  }
 
+  handleMarkerClick(event) {
     const id = event._id;
     this.currentObject = this.userGeoObjects[id];
 
@@ -90,6 +91,8 @@ export class MapComponent implements OnInit {
 
   receiveCloseModal($event) {
     this.modalWindow = false;
+    this.notification = '';
+    this.currentObject = undefined;
   }
 
 }

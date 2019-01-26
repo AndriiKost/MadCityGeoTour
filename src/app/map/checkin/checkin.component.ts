@@ -2,8 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CheckInService } from 'src/app/services/check-in.service';
 import { GeoObject } from 'src/app/models/GeoObject.model';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { HttpClient } from '@angular/common/http';
-import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-checkin',
@@ -17,12 +15,12 @@ export class CheckinComponent implements OnInit {
   // Main geo objects array
   @Input() geoObjects: GeoObject[];
   @Output() handleGeoObjectChange = new EventEmitter();
+  // Send notification to map component
+  @Output() handleNotification = new EventEmitter();
 
   constructor(
     private checkInService: CheckInService,
-    private spinner: NgxSpinnerService,
-    private http: HttpClient,
-    private authService: AuthService
+    private spinner: NgxSpinnerService
     ) { }
 
   ngOnInit() {
@@ -70,11 +68,15 @@ export class CheckinComponent implements OnInit {
 
     // Check if distance between object and user is less or equal then 40 feet
     if (closestObjectDistance <= 40) {
-      console.log('WOOOHOOHOOO you found  ==> ', closestObject.name, ' on the ', closestObject.address);
+      // Build notification
       this.checkInService.handleCheckIn(closestObject);
+      const notification: string = 'WOOOHOOHOOO you found  ==> ' + closestObject.name + ' on the ' + closestObject.address;
+      this.handleNotification.emit(notification);
       this.spinner.hide();
     } else {
-      console.log('Cant find any objects around you. Please move closer.');
+      // Build notification
+      const notification: string = 'Cant find any objects around you. Please move closer.';
+      this.handleNotification.emit(notification);
       this.spinner.hide();
     }
   }

@@ -9,6 +9,7 @@ import { GeoObject } from 'src/app/models/GeoObject.model';
 export class ModalWindowComponent implements OnInit {
   @Output() closeModal = new EventEmitter<boolean>();
   @Input() geoObject: GeoObject;
+  @Input() notification:string;
 
 
   constructor() { }
