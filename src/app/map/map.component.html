@@ -5,6 +5,7 @@
     [notification]="notification"
     [geoObject]="currentObject"></app-modal-window>
   <agm-map [latitude]="currentLatitude" [longitude]="currentLongtitude" [zoom]="mapZoom">
+    <!-- GEO OBJECTS MARKERS -->
     <agm-marker *ngFor="let object of userGeoObjects"
       [latitude]="object.coords.latitude"
       [longitude]="object.coords.longitude"
@@ -12,11 +13,43 @@
       [iconUrl]="objectMarker"
       (markerClick)="handleMarkerClick($event)">
     </agm-marker>
+    <!-- USER MARKER -->
     <agm-marker
       [latitude]="currentLatitude"
       [longitude]="currentLongtitude"
-      [iconUrl]="userMarker">
-    </agm-marker>
+      [iconUrl]="userMarker"></agm-marker>
+    <!-- RESTRAUNTS MARKERS -->
+    <agm-marker
+      [latitude]="43.0784683"
+      [longitude]="-89.3790745"
+      [iconUrl]="restaurantMarker">
+      <agm-info-window [disableAutoPan]="true">
+        <p><strong>Bandung Indonesian Restaurant</strong></p>
+        <p>If you like Thai food, this is one of the best options in the area!</p>
+        <p><a href="https://www.google.com/maps/dir/43.0939636,-89.5286603/Bandung+Indonesian+Restaurant,+600+Williamson+St,+Madison,+WI+53703/@43.06514,-89.5185158,12z/data=!3m1!4b1!4m17!1m6!3m5!1s0x0:0xe4f0bb1e343ab52b!2sBandung+Indonesian+Restaurant!8m2!3d43.0770449!4d-89.3744043!4m9!1m1!4e1!1m5!1m1!1s0x8806536cba5ae4bd:0xe4f0bb1e343ab52b!2m2!1d-89.374404!2d43.0770448!3e0" target="_blank">
+          600 Williamson St, Madison, WI 53703</a></p>
+      </agm-info-window></agm-marker>
+      <agm-marker
+      [latitude]="43.079741"
+      [longitude]="-89.369614"
+      [iconUrl]="restaurantMarker">
+      <agm-info-window [disableAutoPan]="true">
+        <p><strong>Fuegos - Steak Tapas Vegan</strong></p>
+        <p>A mixed pan-Latin menu of small plates & vegan options as well as grilled steaks & tacos.</p>
+        <p><a href="https://www.google.com/maps/dir/43.0939636,-89.5286603/Fuegos+-+Steak+Tapas+Vegan,+904+Williamson+St,+Madison,+WI+53703/@43.0771493,-89.3746985,15.19z/data=!4m17!1m6!3m5!1s0x0:0xf2741786a5773f42!2sFuegos+-+Steak+Tapas+Vegan!8m2!3d43.0797598!4d-89.3696085!4m9!1m1!4e1!1m5!1m1!1s0x8806537272eab295:0xf2741786a5773f42!2m2!1d-89.369608!2d43.0797595!3e2" target="_blank">
+          904 Williamson St, Madison, WI 53703</a></p>
+      </agm-info-window></agm-marker>
+      <!-- RESTROOM MARKERS -->
+      <agm-marker
+      [latitude]="43.0719164"
+      [longitude]="-89.3841777"
+      [iconUrl]="restroomMarker">
+      <agm-info-window [disableAutoPan]="true">
+        <p><strong>Public Restroom</strong> at Downtown Madison Visitor Center</p>
+        <p><a href="https://www.google.com/maps/dir/43.0939636,-89.5286603/Downtown+Madison+Visitor+Center,+452+State+St,+Madison,+WI+53703/@43.06514,-89.5185158,12z/data=!4m10!4m9!1m1!4e1!1m5!1m1!1s0x880653364026ba71:0x8ddc6352c7214890!2m2!1d-89.3927526!2d43.0749703!3e2" target="_blank">
+          452 State St, Madison, WI 53703</a></p>
+      </agm-info-window></agm-marker>
+
   </agm-map>
   <app-checkin
   *ngIf="currentLatitude && currentLongtitude && userGeoObjects"

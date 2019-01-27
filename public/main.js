@@ -505,6 +505,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var angular2_flash_messages__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! angular2-flash-messages */ "./node_modules/angular2-flash-messages/module/index.js");
 /* harmony import */ var angular2_flash_messages__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(angular2_flash_messages__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/auth.service */ "./src/app/services/auth.service.ts");
+/* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/fesm5/ngx-spinner.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -518,13 +519,20 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent(authService, flashMessage, router) {
+    function LoginComponent(authService, flashMessage, router, spinner) {
         this.authService = authService;
         this.flashMessage = flashMessage;
         this.router = router;
+        this.spinner = spinner;
     }
     LoginComponent.prototype.ngOnInit = function () {
+        if (this.authService.loggedIn()) {
+            this.flashMessage.show('You are already logged in', { cssClass: 'alert-success', timeout: 5000 });
+            this.spinner.show();
+            this.router.navigate(['map']);
+        }
     };
     LoginComponent.prototype.onLoginSubmit = function () {
         var _this = this;
@@ -552,7 +560,8 @@ var LoginComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [_services_auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"],
             angular2_flash_messages__WEBPACK_IMPORTED_MODULE_2__["FlashMessagesService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
+            ngx_spinner__WEBPACK_IMPORTED_MODULE_4__["NgxSpinnerService"]])
     ], LoginComponent);
     return LoginComponent;
 }());
@@ -732,7 +741,7 @@ module.exports = "agm-map {\n  height: 90vh;\n}\n"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"map-container\">\n  <app-modal-window\n    *ngIf=\"modalWindow\"\n    (closeModal)=\"receiveCloseModal($event)\"\n    [notification]=\"notification\"\n    [geoObject]=\"currentObject\"></app-modal-window>\n  <agm-map [latitude]=\"currentLatitude\" [longitude]=\"currentLongtitude\" [zoom]=\"mapZoom\">\n    <agm-marker *ngFor=\"let object of userGeoObjects\"\n      [latitude]=\"object.coords.latitude\"\n      [longitude]=\"object.coords.longitude\"\n      [title]=\"object._id\"\n      [iconUrl]=\"objectMarker\"\n      (markerClick)=\"handleMarkerClick($event)\">\n    </agm-marker>\n    <agm-marker\n      [latitude]=\"currentLatitude\"\n      [longitude]=\"currentLongtitude\"\n      [iconUrl]=\"userMarker\">\n    </agm-marker>\n  </agm-map>\n  <app-checkin\n  *ngIf=\"currentLatitude && currentLongtitude && userGeoObjects\"\n  [(geoObjects)]=\"userGeoObjects\"\n  [(currentLatitude)]=\"currentLatitude\"\n  [(currentLongtitude)]=\"currentLongtitude\"\n  (handleCoordinatesChange)=\"changed($event)\"\n  (handleNotification)=\"notificationChanged($event)\"></app-checkin>\n</div>\n<ngx-spinner\nbdColor = \"rgba(1,51,51,0.8)\"\nsize = \"large\"\ncolor = \"#FADA5E\"\ntype = \"pacman\"\n></ngx-spinner>\n"
+module.exports = "<div class=\"map-container\">\n  <app-modal-window\n    *ngIf=\"modalWindow\"\n    (closeModal)=\"receiveCloseModal($event)\"\n    [notification]=\"notification\"\n    [geoObject]=\"currentObject\"></app-modal-window>\n  <agm-map [latitude]=\"currentLatitude\" [longitude]=\"currentLongtitude\" [zoom]=\"mapZoom\">\n    <!-- GEO OBJECTS MARKERS -->\n    <agm-marker *ngFor=\"let object of userGeoObjects\"\n      [latitude]=\"object.coords.latitude\"\n      [longitude]=\"object.coords.longitude\"\n      [title]=\"object._id\"\n      [iconUrl]=\"objectMarker\"\n      (markerClick)=\"handleMarkerClick($event)\">\n    </agm-marker>\n    <!-- USER MARKER -->\n    <agm-marker\n      [latitude]=\"currentLatitude\"\n      [longitude]=\"currentLongtitude\"\n      [iconUrl]=\"userMarker\"></agm-marker>\n    <!-- RESTRAUNTS MARKERS -->\n    <agm-marker\n      [latitude]=\"43.0784683\"\n      [longitude]=\"-89.3790745\"\n      [iconUrl]=\"restaurantMarker\">\n      <agm-info-window [disableAutoPan]=\"true\">\n        <p><strong>Bandung Indonesian Restaurant</strong></p>\n        <p>If you like Thai food, this is one of the best options in the area!</p>\n        <p><a href=\"https://www.google.com/maps/dir/43.0939636,-89.5286603/Bandung+Indonesian+Restaurant,+600+Williamson+St,+Madison,+WI+53703/@43.06514,-89.5185158,12z/data=!3m1!4b1!4m17!1m6!3m5!1s0x0:0xe4f0bb1e343ab52b!2sBandung+Indonesian+Restaurant!8m2!3d43.0770449!4d-89.3744043!4m9!1m1!4e1!1m5!1m1!1s0x8806536cba5ae4bd:0xe4f0bb1e343ab52b!2m2!1d-89.374404!2d43.0770448!3e0\" target=\"_blank\">\n          600 Williamson St, Madison, WI 53703</a></p>\n      </agm-info-window></agm-marker>\n      <agm-marker\n      [latitude]=\"43.079741\"\n      [longitude]=\"-89.369614\"\n      [iconUrl]=\"restaurantMarker\">\n      <agm-info-window [disableAutoPan]=\"true\">\n        <p><strong>Fuegos - Steak Tapas Vegan</strong></p>\n        <p>A mixed pan-Latin menu of small plates & vegan options as well as grilled steaks & tacos.</p>\n        <p><a href=\"https://www.google.com/maps/dir/43.0939636,-89.5286603/Fuegos+-+Steak+Tapas+Vegan,+904+Williamson+St,+Madison,+WI+53703/@43.0771493,-89.3746985,15.19z/data=!4m17!1m6!3m5!1s0x0:0xf2741786a5773f42!2sFuegos+-+Steak+Tapas+Vegan!8m2!3d43.0797598!4d-89.3696085!4m9!1m1!4e1!1m5!1m1!1s0x8806537272eab295:0xf2741786a5773f42!2m2!1d-89.369608!2d43.0797595!3e2\" target=\"_blank\">\n          904 Williamson St, Madison, WI 53703</a></p>\n      </agm-info-window></agm-marker>\n      <!-- RESTROOM MARKERS -->\n      <agm-marker\n      [latitude]=\"43.0719164\"\n      [longitude]=\"-89.3841777\"\n      [iconUrl]=\"restroomMarker\">\n      <agm-info-window [disableAutoPan]=\"true\">\n        <p><strong>Public Restroom</strong> at Downtown Madison Visitor Center</p>\n        <p><a href=\"https://www.google.com/maps/dir/43.0939636,-89.5286603/Downtown+Madison+Visitor+Center,+452+State+St,+Madison,+WI+53703/@43.06514,-89.5185158,12z/data=!4m10!4m9!1m1!4e1!1m5!1m1!1s0x880653364026ba71:0x8ddc6352c7214890!2m2!1d-89.3927526!2d43.0749703!3e2\" target=\"_blank\">\n          452 State St, Madison, WI 53703</a></p>\n      </agm-info-window></agm-marker>\n\n  </agm-map>\n  <app-checkin\n  *ngIf=\"currentLatitude && currentLongtitude && userGeoObjects\"\n  [(geoObjects)]=\"userGeoObjects\"\n  [(currentLatitude)]=\"currentLatitude\"\n  [(currentLongtitude)]=\"currentLongtitude\"\n  (handleCoordinatesChange)=\"changed($event)\"\n  (handleNotification)=\"notificationChanged($event)\"></app-checkin>\n</div>\n<ngx-spinner\nbdColor = \"rgba(1,51,51,0.8)\"\nsize = \"large\"\ncolor = \"#FADA5E\"\ntype = \"pacman\"\n></ngx-spinner>\n"
 
 /***/ }),
 
@@ -771,6 +780,8 @@ var MapComponent = /** @class */ (function () {
         this.modalWindow = false;
         this.userMarker = 'assets/pedestrian-walking.svg';
         this.objectMarker = 'assets/map-pin.svg';
+        this.restaurantMarker = 'assets/restaurant.svg';
+        this.restroomMarker = 'assets/toilet.svg';
         this.mapZoom = 10;
     }
     MapComponent.prototype.ngOnInit = function () {
@@ -875,7 +886,7 @@ var MapComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".modal-window {\n  z-index: 10;\n  position:fixed;\n  padding:0;\n  margin:0;\n\n  top:0;\n  left:0;\n\n  width: 100%;\n  height: 100%;\n  background:rgba(255,255,255,0.8);\n}\n.modal-content {\n  max-width: 75%;\n  margin: 100px auto 0 auto;\n  padding: 25px;\n  background: #fff;\n  border: 1px solid rgb(195,68,75);\n}\n.btn-warning {\n  background: rgb(195,68,75);\n  color: #fff;\n  margin: 0 auto;\n  padding: 15px;\n  border-radius: 3px;\n  border: 1px solid rgb(133, 39, 44);\n  font-size: 1.2em;\n  text-transform: lowercase;\n}\n.btn-warning:hover {\n  background: rgb(133, 39, 44);\n  cursor: pointer;\n}\n"
+module.exports = ".modal-window {\n  z-index: 10;\n  position:fixed;\n  padding:0;\n  margin:0;\n\n  top:0;\n  left:0;\n\n  width: 100%;\n  height: 100%;\n  background:rgba(255,255,255,0.8);\n}\n.modal-content {\n  max-width: 75%;\n  margin: 100px auto 0 auto;\n  padding: 25px;\n  background: #fff;\n  border: 1px solid rgb(195,68,75);\n}\n.btn-warning {\n  background: rgb(195,68,75);\n  color: #fff;\n  margin: 0 auto;\n  padding: 15px;\n  border-radius: 3px;\n  border: 1px solid rgb(133, 39, 44);\n  font-size: 1.2em;\n  text-transform: lowercase;\n}\n.btn-warning:hover {\n  background: rgb(133, 39, 44);\n  cursor: pointer;\n}\n.clipboard-message {\n  position: absolute;\n  top: 40%;\n  left: 40%;\n  color: #fff;\n  background-color: rgb(137, 17, 136);\n  border-radius: 5px;\n  z-index: 5;\n  font-size: 1.5em;\n  padding: .5em;\n  border: 1px solid #000;\n}\n.modal-address {\n  text-decoration: underline;\n}\n.modal-address:hover {\n  cursor: pointer;\n}\n"
 
 /***/ }),
 
@@ -886,7 +897,7 @@ module.exports = ".modal-window {\n  z-index: 10;\n  position:fixed;\n  padding:
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"modal-window\">\n  <div class=\"modal-content\">\n    <h3>{{ geoObject?.name }}</h3>\n    <h3 *ngIf=\"notification !== ''\">{{ notification }}</h3>\n    <p><a href=\"#\">{{ geoObject?.address }}</a></p>\n    <button class=\"btn-warning\" (click)=\"close()\">Close</button>\n  </div>\n</div>\n\n"
+module.exports = "\n<div class=\"modal-window\">\n  <div class=\"modal-content\">\n    <h3>{{ geoObject?.name }}</h3>\n    <h3 *ngIf=\"notification !== ''\">{{ notification }}</h3>\n    <div class=\"clipboard-message\" *ngIf=\"clipboardMessage\">\n        Copied to clipboard\n      </div>\n    <p class=\"modal-address\"(click)=\"copyMessage(geoObject?.address)\" value=\"click to copy\">{{ geoObject?.address }}</p>\n    <button class=\"btn-warning\" (click)=\"close()\">Close</button>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -919,6 +930,30 @@ var ModalWindowComponent = /** @class */ (function () {
     };
     ModalWindowComponent.prototype.close = function () {
         this.closeModal.emit(false);
+    };
+    ModalWindowComponent.prototype.copyMessage = function (val) {
+        this.appearClipboardMessage();
+        var selBox = document.createElement('textarea');
+        selBox.style.position = 'fixed';
+        selBox.style.left = '0';
+        selBox.style.top = '0';
+        selBox.style.opacity = '0';
+        selBox.value = val;
+        document.body.appendChild(selBox);
+        selBox.focus();
+        selBox.select();
+        document.execCommand('copy');
+        document.body.removeChild(selBox);
+    };
+    ModalWindowComponent.prototype.appearClipboardMessage = function () {
+        var _this = this;
+        if (this.clipboardMessage) {
+            return;
+        }
+        else {
+            this.clipboardMessage = true;
+            setTimeout(function () { _this.clipboardMessage = false; }, 3000);
+        }
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),

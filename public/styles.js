@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/* You can add global styles to this file, and also import other style files */\nbody {\n  margin: 0;\n  padding: 0;\n}\n* {\n  font-family: 'Nunito', sans-serif;\n}\n"
+module.exports = "/* You can add global styles to this file, and also import other style files */\nbody {\n  margin: 0;\n  padding: 0;\n}\n* {\n  font-family: 'Nunito', sans-serif;\n}\n/* FLASH MESSAGES */\n.alert-success, .alert-danger {\n  position: absolute;\n  top: 0;\n  right: 0;\n  background-color: rgb(74, 169, 72);\n  padding: .5em;\n  z-index: 10;\n  font-size: 1.2em;\n  width: 40%;\n  margin-right: 10%;\n  margin-top: 10px;\n  border-radius: 7px;\n  letter-spacing: .1em;\n  color: #fff;\n}\n.alert-danger {\n  background-color: darkred;\n}\n"
 
 /***/ }),
 

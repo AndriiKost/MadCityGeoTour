@@ -9,7 +9,8 @@ import { GeoObject } from 'src/app/models/GeoObject.model';
 export class ModalWindowComponent implements OnInit {
   @Output() closeModal = new EventEmitter<boolean>();
   @Input() geoObject: GeoObject;
-  @Input() notification:string;
+  @Input() notification: string;
+  clipboardMessage: boolean;
 
 
   constructor() { }
@@ -20,6 +21,30 @@ export class ModalWindowComponent implements OnInit {
 
   close() {
     this.closeModal.emit(false);
+  }
+
+  copyMessage(val: string) {
+    this.appearClipboardMessage();
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = val;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+  }
+
+  appearClipboardMessage() {
+    if (this.clipboardMessage) {
+      return;
+    } else {
+      this.clipboardMessage = true;
+      setTimeout(() => { this.clipboardMessage = false; }, 3000);
+    }
   }
 
 }

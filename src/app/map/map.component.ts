@@ -21,6 +21,8 @@ export class MapComponent implements OnInit, OnDestroy {
   notification: string;
   userMarker = 'assets/pedestrian-walking.svg';
   objectMarker = 'assets/map-pin.svg';
+  restaurantMarker = 'assets/restaurant.svg';
+  restroomMarker = 'assets/toilet.svg';
   mapZoom = 10;
 
   constructor(
