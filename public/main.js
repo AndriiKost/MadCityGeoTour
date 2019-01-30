@@ -992,7 +992,7 @@ module.exports = ".modal-window {\n  z-index: 10;\n  position:fixed;\n  padding:
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"modal-window\">\n  <div class=\"modal-content\">\n    <h3>{{ geoObject?.name }}</h3>\n    <h3 *ngIf=\"notification !== ''\">{{ notification }}</h3>\n    <div class=\"clipboard-message\" *ngIf=\"clipboardMessage\">\n        Copied to clipboard\n    </div>\n    <p class=\"modal-address\" (click)=\"copyMessage(geoObject?.address)\" value=\"click to copy\">{{ geoObject?.address }}</p>\n    <p>Best angel for picture: South-western side of the building</p>\n    <button class=\"btn-warning\" (click)=\"close()\">Close</button>\n  </div>\n</div>\n"
+module.exports = "\n<div class=\"modal-window\">\n  <div class=\"modal-content\">\n    <h3>{{ geoObject?.name }}</h3>\n    <h3 *ngIf=\"notification !== ''\">{{ notification }}</h3>\n    <div class=\"clipboard-message\" *ngIf=\"clipboardMessage\">\n        Copied to clipboard\n    </div>\n    <p class=\"modal-address\" (click)=\"copyMessage(geoObject?.address)\" value=\"click to copy\">{{ geoObject?.address }}</p>\n    <p *ngIf=\"geoObject\">Best angel for picture: South-western side of the building</p>\n    <button class=\"btn-warning\" (click)=\"close()\">Close</button>\n  </div>\n</div>\n"
 
 /***/ }),
 
