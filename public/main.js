@@ -119,12 +119,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _rules_rules_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./rules/rules.component */ "./src/app/rules/rules.component.ts");
 /* harmony import */ var _landing_landing_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./landing/landing.component */ "./src/app/landing/landing.component.ts");
 /* harmony import */ var _footer_footer_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./footer/footer.component */ "./src/app/footer/footer.component.ts");
+/* harmony import */ var _map_counter_counter_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./map/counter/counter.component */ "./src/app/map/counter/counter.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -178,7 +180,8 @@ var AppModule = /** @class */ (function () {
                 _checklist_checklist_component__WEBPACK_IMPORTED_MODULE_23__["ChecklistComponent"],
                 _rules_rules_component__WEBPACK_IMPORTED_MODULE_24__["RulesComponent"],
                 _landing_landing_component__WEBPACK_IMPORTED_MODULE_25__["LandingComponent"],
-                _footer_footer_component__WEBPACK_IMPORTED_MODULE_26__["FooterComponent"]
+                _footer_footer_component__WEBPACK_IMPORTED_MODULE_26__["FooterComponent"],
+                _map_counter_counter_component__WEBPACK_IMPORTED_MODULE_27__["CounterComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -216,7 +219,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".checklist-container {\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 1fr 1fr;\n      grid-template-columns: 1fr 1fr;\n}\n.checklist-item {\n  margin: 10px;\n  padding: 10px;\n  border-left: 1px solid rgb(138, 17, 137);\n  border-bottom: 1px solid rgb(138, 17, 137);\n  border-radius: 5px;\n}\n.header h2 {\n  color: darkred;\n  text-transform: uppercase;\n  font-weight: 300;\n  text-align: center;\n  padding: 1em;\n}\n.toCheck {\n\n}\n.checked {\n  cursor: not-allowed;\n  color: rgb(185, 184, 184);\n  background: rgba(69, 3, 59, 0.5);\n}\nh4 {\n  text-transform: uppercase;\n  font-weight: bold;\n  letter-spacing: 0.1em;\n}\n"
+module.exports = ".checklist-container {\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 1fr 1fr;\n      grid-template-columns: 1fr 1fr;\n}\n.checklist-item {\n  margin: 10px;\n  padding: 10px;\n  border-left: 1px solid rgb(138, 17, 137);\n  border-bottom: 1px solid rgb(138, 17, 137);\n  border-radius: 5px;\n}\n.header h2 {\n  color: darkred;\n  text-transform: uppercase;\n  font-weight: 300;\n  text-align: center;\n  padding: 1em;\n}\n.toCheck {\n\n}\n.checked {\n  cursor: not-allowed;\n  color: rgb(185, 184, 184);\n  background: rgba(69, 3, 59, 0.5);\n}\n.checked * {\n  cursor: not-allowed!important;\n  /* pointer-events: none!important; */\n}\nh4 {\n  text-transform: uppercase;\n  font-weight: bold;\n  letter-spacing: 0.1em;\n}\n.clipboard-message {\n  position: absolute;\n  top: 40%;\n  left: 40%;\n  color: #fff;\n  background-color: rgb(137, 17, 136);\n  border-radius: 5px;\n  z-index: 5;\n  font-size: 1.5em;\n  padding: .5em;\n  border: 1px solid #000;\n}\n.modal-address {\n  text-decoration: underline;\n}\n.modal-address:hover {\n  cursor: pointer;\n}\n"
 
 /***/ }),
 
@@ -227,7 +230,7 @@ module.exports = ".checklist-container {\n  display: -ms-grid;\n  display: grid;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"header\">\n    <h2>To Check</h2>\n</div>\n<div class=\"checklist-container\">\n  <div class=\"checklist-item\" *ngFor=\"let object of userGeoObjects\" [ngClass]=\"!object.visited ? 'toCheck' : 'checked'\">\n    <!-- <div class=\"checklist-content\" *ngIf=\"!object.visited\"> -->\n    <div class=\"checklist-content\">\n      <h4>{{object.name}}</h4>\n      <p>{{object.address}}</p>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"header\">\n    <h2>To Check</h2>\n</div>\n<div class=\"clipboard-message\" *ngIf=\"clipboardMessage\">\n  Copied to clipboard\n</div>\n<div class=\"checklist-container\">\n  <div class=\"checklist-item\" *ngFor=\"let object of userGeoObjects\" [ngClass]=\"!object.visited ? 'toCheck' : 'checked'\">\n    <div class=\"checklist-content\">\n      <h4>{{object.name}}</h4>\n      <p class=\"modal-address\" (click)=\"copyMessage(object?.address)\" value=\"click to copy\">{{ object?.address }}</p>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -275,6 +278,30 @@ var ChecklistComponent = /** @class */ (function () {
             console.log(err);
             return false;
         });
+    };
+    ChecklistComponent.prototype.copyMessage = function (val) {
+        this.appearClipboardMessage();
+        var selBox = document.createElement('textarea');
+        selBox.style.position = 'fixed';
+        selBox.style.left = '0';
+        selBox.style.top = '0';
+        selBox.style.opacity = '0';
+        selBox.value = val;
+        document.body.appendChild(selBox);
+        selBox.focus();
+        selBox.select();
+        document.execCommand('copy');
+        document.body.removeChild(selBox);
+    };
+    ChecklistComponent.prototype.appearClipboardMessage = function () {
+        var _this = this;
+        if (this.clipboardMessage) {
+            return;
+        }
+        else {
+            this.clipboardMessage = true;
+            setTimeout(function () { _this.clipboardMessage = false; }, 3000);
+        }
     };
     ChecklistComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -723,6 +750,74 @@ var CheckinComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/map/counter/counter.component.css":
+/*!***************************************************!*\
+  !*** ./src/app/map/counter/counter.component.css ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".counter {\n  position: absolute;\n  top: 0;\n  left: 0;\n  padding: 0 5px;\n  background: #fff;\n  z-index: 20;\n}\n"
+
+/***/ }),
+
+/***/ "./src/app/map/counter/counter.component.html":
+/*!****************************************************!*\
+  !*** ./src/app/map/counter/counter.component.html ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"counter\">\n  <h4 *ngIf=\"count\">TO CHECK: {{ count }}</h4>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/map/counter/counter.component.ts":
+/*!**************************************************!*\
+  !*** ./src/app/map/counter/counter.component.ts ***!
+  \**************************************************/
+/*! exports provided: CounterComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CounterComponent", function() { return CounterComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var CounterComponent = /** @class */ (function () {
+    function CounterComponent() {
+    }
+    CounterComponent.prototype.ngOnInit = function () {
+        this.count = this.userGeoObjects.length;
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Array)
+    ], CounterComponent.prototype, "userGeoObjects", void 0);
+    CounterComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-counter',
+            template: __webpack_require__(/*! ./counter.component.html */ "./src/app/map/counter/counter.component.html"),
+            styles: [__webpack_require__(/*! ./counter.component.css */ "./src/app/map/counter/counter.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], CounterComponent);
+    return CounterComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/map/map.component.css":
 /*!***************************************!*\
   !*** ./src/app/map/map.component.css ***!
@@ -741,7 +836,7 @@ module.exports = "agm-map {\n  height: 90vh;\n}\n"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"map-container\">\n  <app-modal-window\n    *ngIf=\"modalWindow\"\n    (closeModal)=\"receiveCloseModal($event)\"\n    [notification]=\"notification\"\n    [geoObject]=\"currentObject\"></app-modal-window>\n  <agm-map [latitude]=\"currentLatitude\" [longitude]=\"currentLongtitude\" [zoom]=\"mapZoom\">\n    <!-- GEO OBJECTS MARKERS -->\n    <agm-marker *ngFor=\"let object of userGeoObjects\"\n      [latitude]=\"object.coords.latitude\"\n      [longitude]=\"object.coords.longitude\"\n      [title]=\"object._id\"\n      [iconUrl]=\"objectMarker\"\n      (markerClick)=\"handleMarkerClick($event)\">\n    </agm-marker>\n    <!-- USER MARKER -->\n    <agm-marker\n      [latitude]=\"currentLatitude\"\n      [longitude]=\"currentLongtitude\"\n      [iconUrl]=\"userMarker\"></agm-marker>\n    <!-- RESTRAUNTS MARKERS -->\n    <agm-marker\n      [latitude]=\"43.0784683\"\n      [longitude]=\"-89.3790745\"\n      [iconUrl]=\"restaurantMarker\">\n      <agm-info-window [disableAutoPan]=\"true\">\n        <p><strong>Bandung Indonesian Restaurant</strong></p>\n        <p>If you like Thai food, this is one of the best options in the area!</p>\n        <p><a href=\"https://www.google.com/maps/dir/43.0939636,-89.5286603/Bandung+Indonesian+Restaurant,+600+Williamson+St,+Madison,+WI+53703/@43.06514,-89.5185158,12z/data=!3m1!4b1!4m17!1m6!3m5!1s0x0:0xe4f0bb1e343ab52b!2sBandung+Indonesian+Restaurant!8m2!3d43.0770449!4d-89.3744043!4m9!1m1!4e1!1m5!1m1!1s0x8806536cba5ae4bd:0xe4f0bb1e343ab52b!2m2!1d-89.374404!2d43.0770448!3e0\" target=\"_blank\">\n          600 Williamson St, Madison, WI 53703</a></p>\n      </agm-info-window></agm-marker>\n      <agm-marker\n      [latitude]=\"43.079741\"\n      [longitude]=\"-89.369614\"\n      [iconUrl]=\"restaurantMarker\">\n      <agm-info-window [disableAutoPan]=\"true\">\n        <p><strong>Fuegos - Steak Tapas Vegan</strong></p>\n        <p>A mixed pan-Latin menu of small plates & vegan options as well as grilled steaks & tacos.</p>\n        <p><a href=\"https://www.google.com/maps/dir/43.0939636,-89.5286603/Fuegos+-+Steak+Tapas+Vegan,+904+Williamson+St,+Madison,+WI+53703/@43.0771493,-89.3746985,15.19z/data=!4m17!1m6!3m5!1s0x0:0xf2741786a5773f42!2sFuegos+-+Steak+Tapas+Vegan!8m2!3d43.0797598!4d-89.3696085!4m9!1m1!4e1!1m5!1m1!1s0x8806537272eab295:0xf2741786a5773f42!2m2!1d-89.369608!2d43.0797595!3e2\" target=\"_blank\">\n          904 Williamson St, Madison, WI 53703</a></p>\n      </agm-info-window></agm-marker>\n      <!-- RESTROOM MARKERS -->\n      <agm-marker\n      [latitude]=\"43.0719164\"\n      [longitude]=\"-89.3841777\"\n      [iconUrl]=\"restroomMarker\">\n      <agm-info-window [disableAutoPan]=\"true\">\n        <p><strong>Public Restroom</strong> at Downtown Madison Visitor Center</p>\n        <p><a href=\"https://www.google.com/maps/dir/43.0939636,-89.5286603/Downtown+Madison+Visitor+Center,+452+State+St,+Madison,+WI+53703/@43.06514,-89.5185158,12z/data=!4m10!4m9!1m1!4e1!1m5!1m1!1s0x880653364026ba71:0x8ddc6352c7214890!2m2!1d-89.3927526!2d43.0749703!3e2\" target=\"_blank\">\n          452 State St, Madison, WI 53703</a></p>\n      </agm-info-window></agm-marker>\n\n  </agm-map>\n  <app-checkin\n  *ngIf=\"currentLatitude && currentLongtitude && userGeoObjects\"\n  [(geoObjects)]=\"userGeoObjects\"\n  [(currentLatitude)]=\"currentLatitude\"\n  [(currentLongtitude)]=\"currentLongtitude\"\n  (handleCoordinatesChange)=\"changed($event)\"\n  (handleNotification)=\"notificationChanged($event)\"></app-checkin>\n</div>\n<ngx-spinner\nbdColor = \"rgba(1,51,51,0.8)\"\nsize = \"large\"\ncolor = \"#FADA5E\"\ntype = \"pacman\"\n></ngx-spinner>\n"
+module.exports = "<app-counter *ngIf=\"userGeoObjects\" [userGeoObjects]=\"userGeoObjects\"></app-counter>\n<div class=\"map-container\">\n  <app-modal-window\n    *ngIf=\"modalWindow\"\n    (closeModal)=\"receiveCloseModal($event)\"\n    [notification]=\"notification\"\n    [geoObject]=\"currentObject\"></app-modal-window>\n  <agm-map [latitude]=\"currentLatitude\" [longitude]=\"currentLongtitude\" [zoom]=\"mapZoom\">\n    <!-- GEO OBJECTS MARKERS -->\n    <agm-marker *ngFor=\"let object of userGeoObjects\"\n      [latitude]=\"object.coords.latitude\"\n      [longitude]=\"object.coords.longitude\"\n      [title]=\"object._id\"\n      [iconUrl]=\"objectMarker\"\n      (markerClick)=\"handleMarkerClick($event)\">\n    </agm-marker>\n    <!-- USER MARKER -->\n    <agm-marker\n      [latitude]=\"currentLatitude\"\n      [longitude]=\"currentLongtitude\"\n      [iconUrl]=\"userMarker\"></agm-marker>\n    <!-- RESTRAUNTS MARKERS -->\n    <agm-marker\n      [latitude]=\"43.0784683\"\n      [longitude]=\"-89.3790745\"\n      [iconUrl]=\"restaurantMarker\">\n      <agm-info-window [disableAutoPan]=\"true\">\n        <p><strong>Bandung Indonesian Restaurant</strong></p>\n        <p>If you like Thai food, this is one of the best options in the area!</p>\n        <p><a href=\"https://www.google.com/maps/dir/43.0939636,-89.5286603/Bandung+Indonesian+Restaurant,+600+Williamson+St,+Madison,+WI+53703/@43.06514,-89.5185158,12z/data=!3m1!4b1!4m17!1m6!3m5!1s0x0:0xe4f0bb1e343ab52b!2sBandung+Indonesian+Restaurant!8m2!3d43.0770449!4d-89.3744043!4m9!1m1!4e1!1m5!1m1!1s0x8806536cba5ae4bd:0xe4f0bb1e343ab52b!2m2!1d-89.374404!2d43.0770448!3e0\" target=\"_blank\">\n          600 Williamson St, Madison, WI 53703</a></p>\n      </agm-info-window></agm-marker>\n      <agm-marker\n      [latitude]=\"43.079741\"\n      [longitude]=\"-89.369614\"\n      [iconUrl]=\"restaurantMarker\">\n      <agm-info-window [disableAutoPan]=\"true\">\n        <p><strong>Fuegos - Steak Tapas Vegan</strong></p>\n        <p>A mixed pan-Latin menu of small plates & vegan options as well as grilled steaks & tacos.</p>\n        <p><a href=\"https://www.google.com/maps/dir/43.0939636,-89.5286603/Fuegos+-+Steak+Tapas+Vegan,+904+Williamson+St,+Madison,+WI+53703/@43.0771493,-89.3746985,15.19z/data=!4m17!1m6!3m5!1s0x0:0xf2741786a5773f42!2sFuegos+-+Steak+Tapas+Vegan!8m2!3d43.0797598!4d-89.3696085!4m9!1m1!4e1!1m5!1m1!1s0x8806537272eab295:0xf2741786a5773f42!2m2!1d-89.369608!2d43.0797595!3e2\" target=\"_blank\">\n          904 Williamson St, Madison, WI 53703</a></p>\n      </agm-info-window></agm-marker>\n      <!-- RESTROOM MARKERS -->\n      <agm-marker\n      [latitude]=\"43.0719164\"\n      [longitude]=\"-89.3841777\"\n      [iconUrl]=\"restroomMarker\">\n      <agm-info-window [disableAutoPan]=\"true\">\n        <p><strong>Public Restroom</strong> at Downtown Madison Visitor Center</p>\n        <p><a href=\"https://www.google.com/maps/dir/43.0939636,-89.5286603/Downtown+Madison+Visitor+Center,+452+State+St,+Madison,+WI+53703/@43.06514,-89.5185158,12z/data=!4m10!4m9!1m1!4e1!1m5!1m1!1s0x880653364026ba71:0x8ddc6352c7214890!2m2!1d-89.3927526!2d43.0749703!3e2\" target=\"_blank\">\n          452 State St, Madison, WI 53703</a></p>\n      </agm-info-window></agm-marker>\n\n  </agm-map>\n  <app-checkin\n  *ngIf=\"currentLatitude && currentLongtitude && userGeoObjects\"\n  [(geoObjects)]=\"userGeoObjects\"\n  [(currentLatitude)]=\"currentLatitude\"\n  [(currentLongtitude)]=\"currentLongtitude\"\n  (handleCoordinatesChange)=\"changed($event)\"\n  (handleNotification)=\"notificationChanged($event)\"></app-checkin>\n</div>\n<ngx-spinner\nbdColor = \"rgba(1,51,51,0.8)\"\nsize = \"large\"\ncolor = \"#FADA5E\"\ntype = \"pacman\"\n></ngx-spinner>\n"
 
 /***/ }),
 
@@ -897,7 +992,7 @@ module.exports = ".modal-window {\n  z-index: 10;\n  position:fixed;\n  padding:
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"modal-window\">\n  <div class=\"modal-content\">\n    <h3>{{ geoObject?.name }}</h3>\n    <h3 *ngIf=\"notification !== ''\">{{ notification }}</h3>\n    <div class=\"clipboard-message\" *ngIf=\"clipboardMessage\">\n        Copied to clipboard\n      </div>\n    <p class=\"modal-address\"(click)=\"copyMessage(geoObject?.address)\" value=\"click to copy\">{{ geoObject?.address }}</p>\n    <button class=\"btn-warning\" (click)=\"close()\">Close</button>\n  </div>\n</div>\n"
+module.exports = "\n<div class=\"modal-window\">\n  <div class=\"modal-content\">\n    <h3>{{ geoObject?.name }}</h3>\n    <h3 *ngIf=\"notification !== ''\">{{ notification }}</h3>\n    <div class=\"clipboard-message\" *ngIf=\"clipboardMessage\">\n        Copied to clipboard\n    </div>\n    <p class=\"modal-address\" (click)=\"copyMessage(geoObject?.address)\" value=\"click to copy\">{{ geoObject?.address }}</p>\n    <p>Best angel for picture: South-western side of the building</p>\n    <button class=\"btn-warning\" (click)=\"close()\">Close</button>\n  </div>\n</div>\n"
 
 /***/ }),
 

@@ -5,8 +5,9 @@
     <h3 *ngIf="notification !== ''">{{ notification }}</h3>
     <div class="clipboard-message" *ngIf="clipboardMessage">
         Copied to clipboard
-      </div>
-    <p class="modal-address"(click)="copyMessage(geoObject?.address)" value="click to copy">{{ geoObject?.address }}</p>
+    </div>
+    <p class="modal-address" (click)="copyMessage(geoObject?.address)" value="click to copy">{{ geoObject?.address }}</p>
+    <p>Best angel for picture: South-western side of the building</p>
     <button class="btn-warning" (click)="close()">Close</button>
   </div>
 </div>

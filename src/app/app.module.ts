@@ -26,6 +26,7 @@ import { ChecklistComponent } from './checklist/checklist.component';
 import { RulesComponent } from './rules/rules.component';
 import { LandingComponent } from './landing/landing.component';
 import { FooterComponent } from './footer/footer.component';
+import { CounterComponent } from './map/counter/counter.component';
 
 const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
@@ -50,7 +51,8 @@ const appRoutes: Routes = [
     ChecklistComponent,
     RulesComponent,
     LandingComponent,
-    FooterComponent
+    FooterComponent,
+    CounterComponent
   ],
   imports: [
     BrowserModule,
