@@ -10,26 +10,29 @@ import { catchError } from 'rxjs/operators';
 })
 export class GeoObjectService {
 
+  // public url = 'http://localhost:8000';
+  public url = 'https://madcitygeotour.herokuapp.com';
+
   constructor(
     public http: HttpClient
   ) { }
 
   getUserObjects(): Observable<GeoObject[]> {
-    const url ='http://localhost:8000/profile';
+    // const url = 'http://localhost:8000/profile';
     // const url = 'https://madcitygeotour.herokuapp.com/profile';
 
-    return this.http.get<GeoObject[]>(url)
+    return this.http.get<GeoObject[]>(`${this.url}/profile`)
     .pipe(
       catchError(this.handleError('getUserObjects', []))
     );
 
   }
 
-  getObjectsDetails(id: string): Observable<GeoObject[]> {
-    const url =`http://localhost:8000/geo-objects/${id}`;
+  getObjectsDetails(id: string): Observable<any> {
+    // const url = `http://localhost:8000/geo-objects/${id}`;
     // const url = 'https://madcitygeotour.herokuapp.com/profile';
 
-    return this.http.get<GeoObject[]>(url)
+    return this.http.get<any>(`${this.url}/geo-objects/${id}`)
     .pipe(
       catchError(this.handleError('getObjectsDetails', []))
     );
@@ -37,10 +40,10 @@ export class GeoObjectService {
   }
 
   getAllObjects(): Observable<GeoObject[]> {
-    const url = 'http://localhost:8000/geo-objects/';
+    // const url = 'http://localhost:8000/geo-objects/';
     // const url = 'https://madcitygeotour.herokuapp.com/geo-objects/';
 
-    return this.http.get<GeoObject[]>(url)
+    return this.http.get<GeoObject[]>(`${this.url}/geo-objects/`)
               .pipe(
                 catchError(this.handleError('getAllObjects', []))
               );

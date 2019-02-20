@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import { GeoObject } from '../models/GeoObject.model';
 import { AuthService } from './auth.service';
+import { HttpClient } from '@angular/common/http';
 
-const url = 'http://localhost:8000/users/';
-// const url = 'https://madcitygeotour.herokuapp.com/users/';
+// const url = 'http://localhost:8000/users/';
+const url = 'https://madcitygeotour.herokuapp.com/users/';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ const url = 'http://localhost:8000/users/';
 export class CheckInService {
 
   constructor(
-    private http: Http,
+    private http: HttpClient,
     private authService: AuthService
     ) {  }
 
@@ -32,7 +32,7 @@ export class CheckInService {
 handleCheckIn(object: GeoObject) {
   this.authService.getProfile().subscribe(profile => {
     this.authService.tagGeoObject(object, profile.user._id).subscribe(data => {
-      console.log('handleCheckIn => ', data);
+      // console.log('handleCheckIn => ', data);
     });
   },
   err => {

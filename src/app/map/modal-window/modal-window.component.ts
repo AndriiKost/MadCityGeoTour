@@ -22,14 +22,14 @@ export class ModalWindowComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.spinner.show();
-    this.getObjectDescription();
+    this.geoObject ? this.getObjectDescription() : null;
   }
 
   getObjectDescription() {
+    this.spinner.show();
     const id = this.geoObject._id;
-    this.geoObjectService.getObjectsDetails(id).subscribe(data => {
-      this.objectDescription = data.description;
+    this.geoObjectService.getObjectsDetails(id).subscribe(objectDetails => {
+      this.objectDescription = objectDetails.description;
       this.spinner.hide();
     });
   }

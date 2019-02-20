@@ -12,7 +12,7 @@
 }
 .action-btn {
   padding: 15px;
-  margin-left: 10px;
+  margin-left: 1em;
   font-size: 1em;
   border-radius: 5px;
   border: 1px solid rgba(138, 17, 138, 0.5);
@@ -34,4 +34,13 @@
   font-size: 1.2em;
   padding: 1em 2em;
   letter-spacing: .1em
+}
+
+/* HEAD IMAGE */
+.head-image {
+  margin: 0 15%;
+}
+.head-image img {
+  top: 0;
+  width: 100%;
 }

@@ -8,8 +8,8 @@
 .login-form {
   border: 1px solid rgb(160, 159, 159);
   border-radius: 3px;
-  margin: auto;
-  width: 50%;
+  margin: 50px auto;
+  width: 75%;
   padding: 2em 2em 5em 2em;
 }
 .login-form div {
@@ -29,7 +29,7 @@ input {
 }
 .action-btn {
   padding: 15px;
-  margin-left: 10px;
+  margin: 35px auto 0 auto;
   font-size: 1em;
   border-radius: 5px;
   border: 1px solid rgba(138, 17, 138, 0.5);
@@ -56,4 +56,26 @@ input {
 }
 .user-help span:hover {
   cursor: pointer;
+}
+
+@media (max-width: 650px) {
+  .login-form {
+    margin-top: 25px;
+    font-size: 1em;
+    border: none;
+    padding: 1em;
+  }
+  .action-btn {
+    width: 96%;
+  }
+  input {
+    margin: 10px 0 0 0;
+    font-size: 1em;
+    float: none;
+    width: 90%;
+    padding: 2%;
+  }
+  .user-help {
+    font-size: .9em;
+  }
 }

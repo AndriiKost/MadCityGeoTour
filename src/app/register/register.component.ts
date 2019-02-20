@@ -6,6 +6,7 @@ import { ValidateService } from '../services/validate.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { GeoObjectService } from '../services/geoObject.service';
 import { GeoObject } from '../models/GeoObject.model';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-register',
@@ -24,18 +25,25 @@ export class RegisterComponent implements OnInit {
     private flashMessage: FlashMessagesService,
     private authService: AuthService,
     private router: Router,
-    private geoObjectService: GeoObjectService
+    private geoObjectService: GeoObjectService,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit() {
-    this.getObjects();
+    if (this.authService.loggedIn()) {
+      this.flashMessage.show('You are already logged in', {cssClass: 'alert-success', timeout: 5000});
+      this.spinner.show();
+      this.router.navigate(['map']);
+    } else {
+      this.getObjects();
+    }
   }
 
   getObjects() {
     this.geoObjectService.getAllObjects().subscribe(
       objects => {
         this.geoObjectsForUser = objects;
-        console.log(objects);
+        // console.log(objects);
       }
     );
   }
@@ -48,7 +56,7 @@ export class RegisterComponent implements OnInit {
       password: this.password,
       geoObjects: this.geoObjectsForUser
     };
-    console.log(user);
+    // console.log(user);
     // Required fields
     if (!this.validateService.validateRegister(user)) {
       this.flashMessage.show('Please fill in all fields', {cssClass: 'alert-danger', timeout: 3000});

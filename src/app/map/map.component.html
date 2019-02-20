@@ -18,7 +18,9 @@
     <agm-marker
       [latitude]="currentLatitude"
       [longitude]="currentLongtitude"
-      [iconUrl]="userMarker"></agm-marker>
+      [iconUrl]="userMarker">
+      <agm-info-window [disableAutoPan]="true"><h2>This is you!</h2></agm-info-window>
+    </agm-marker>
     <!-- RESTRAUNTS MARKERS -->
     <agm-marker
       [latitude]="43.0784683"
@@ -53,16 +55,16 @@
 
   </agm-map>
   <app-checkin
-  *ngIf="currentLatitude && currentLongtitude && userGeoObjects"
-  [(geoObjects)]="userGeoObjects"
-  [(currentLatitude)]="currentLatitude"
-  [(currentLongtitude)]="currentLongtitude"
-  (handleCoordinatesChange)="changed($event)"
-  (handleNotification)="notificationChanged($event)"></app-checkin>
+    *ngIf="currentLatitude && currentLongtitude && userGeoObjects"
+    [(geoObjects)]="userGeoObjects"
+    [(currentLatitude)]="currentLatitude"
+    [(currentLongtitude)]="currentLongtitude"
+    (handleCoordinatesChange)="changed($event)"
+    (handleNotification)="notificationChanged($event)"></app-checkin>
 </div>
 <ngx-spinner
-bdColor = "rgba(1,51,51,0.8)"
-size = "large"
-color = "#FADA5E"
-type = "pacman"
-></ngx-spinner>
+  bdColor = "rgba(1,51,51,0.8)"
+  size = "large"
+  color = "#FADA5E"
+  type = "pacman"
+  ></ngx-spinner>
