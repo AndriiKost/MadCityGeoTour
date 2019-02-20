@@ -12,4 +12,6 @@ router.post('/create', geoObject_controller.create_geoObjects);
 
 router.get('/', geoObject_controller.geoObjects_list);
 
+router.get('/:id', geoObject_controller.geoObject_details);
+
 module.exports = router;

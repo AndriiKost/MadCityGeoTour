@@ -31,6 +31,8 @@ export class CheckinComponent implements OnInit {
     navigator.geolocation.getCurrentPosition((position) => {
       this.currentLatitude = position.coords.latitude;
       this.currentLongtitude = position.coords.longitude;
+      // this.currentLongtitude = -89.399739;
+      // this.currentLatitude = 43.076718;
       this.handleCoordinatesChange.emit([this.currentLatitude, this.currentLongtitude]);
       this.performGeolocationCheckIn();
     });
@@ -56,26 +58,26 @@ export class CheckinComponent implements OnInit {
       if (closestObjectDistance === undefined) {
         closestObjectDistance = distanceBetweenObjectAndUser;
       }
-      console.log('distanceBetweenObjectAndUser ==> ', distanceBetweenObjectAndUser);
+      // console.log('distanceBetweenObjectAndUser ==> ', distanceBetweenObjectAndUser);
       // Check if current distance is lower then previous
       if (closestObjectDistance > distanceBetweenObjectAndUser) {
         closestObjectDistance = distanceBetweenObjectAndUser;
         closestObject = cur;
       }
     });
-    console.log('closestObject ==> ', closestObject);
-    console.log('closestObjectDistance ==> ', closestObjectDistance);
+    // console.log('closestObject ==> ', closestObject);
+    // console.log('closestObjectDistance ==> ', closestObjectDistance);
 
     // Check if distance between object and user is less or equal then 40 feet
     if (closestObjectDistance <= 40) {
       // Build notification
       this.checkInService.handleCheckIn(closestObject);
-      const notification: string = 'WOOOHOOHOOO you found  ==> ' + closestObject.name + ' on the ' + closestObject.address;
+      const notification = 'WOOOHOOHOOO you found  ==> ' + closestObject.name + ' on the ' + closestObject.address;
       this.handleNotification.emit(notification);
       this.spinner.hide();
     } else {
       // Build notification
-      const notification: string = 'Cant find any objects around you. Please move closer.';
+      const notification = 'Cant find any objects around you. Please move closer.';
       this.handleNotification.emit(notification);
       this.spinner.hide();
     }

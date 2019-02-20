@@ -4,8 +4,8 @@ import { map } from 'rxjs/operators';
 import { tokenNotExpired } from 'angular2-jwt';
 import { GeoObject } from '../models/GeoObject.model';
 
-// const url = 'http://localhost:8000/';
-const url = 'https://madcitygeotour.herokuapp.com/';
+const url = 'http://localhost:8000/';
+// const url = 'https://madcitygeotour.herokuapp.com/';
 
 @Injectable({
   providedIn: 'root'

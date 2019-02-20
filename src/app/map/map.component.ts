@@ -23,7 +23,7 @@ export class MapComponent implements OnInit, OnDestroy {
   objectMarker = 'assets/map-pin.svg';
   restaurantMarker = 'assets/restaurant.svg';
   restroomMarker = 'assets/toilet.svg';
-  mapZoom = 10;
+  mapZoom = 14;
 
   constructor(
     public geoObjectService: GeoObjectService,
@@ -35,12 +35,11 @@ export class MapComponent implements OnInit, OnDestroy {
     // Show spinner the first thing
     this.spinner.show();
     this.getUserObjects();
-
     this.defineCoords();
   }
 
   changed(newValue) {
-    console.log('newValue', newValue);
+    // console.log('newValue', newValue);
     this.currentLatitude = newValue[0];
     this.currentLongtitude = newValue[1];
   }

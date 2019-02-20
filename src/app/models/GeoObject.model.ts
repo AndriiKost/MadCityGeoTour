@@ -4,8 +4,9 @@ export interface GeoObject {
     latitude: number;
     longitude: number;
   };
-    name: string;
-    address: string;
-    visited: boolean;
-    _id: string;
+  description: string;
+  name: string;
+  address: string;
+  visited: boolean;
+  _id: string;
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { GeoObject } from 'src/app/models/GeoObject.model';
+import { GeoObjectService } from 'src/app/services/geoObject.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-modal-window',
@@ -10,13 +12,26 @@ export class ModalWindowComponent implements OnInit {
   @Output() closeModal = new EventEmitter<boolean>();
   @Input() geoObject: GeoObject;
   @Input() notification: string;
+  objectDescription: String;
   clipboardMessage: boolean;
 
 
-  constructor() { }
+  constructor(
+    private geoObjectService: GeoObjectService,
+    private spinner: NgxSpinnerService
+  ) { }
 
   ngOnInit() {
+    this.spinner.show();
+    this.getObjectDescription();
+  }
 
+  getObjectDescription() {
+    const id = this.geoObject._id;
+    this.geoObjectService.getObjectsDetails(id).subscribe(data => {
+      this.objectDescription = data.description;
+      this.spinner.hide();
+    });
   }
 
   close() {

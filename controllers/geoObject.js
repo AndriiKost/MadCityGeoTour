@@ -19,13 +19,22 @@ exports.create_geoObjects = function (req, res, next) {
     }
   );
 
-  console.log('Geoobject ----**********>',geoObject);
+  // console.log('Geoobject ----**********>',geoObject);
 
   geoObject.save(function (err) {
       if (err) {
           return next(err);
       }
       res.send('Geo Objects created successfully')
+  })
+};
+
+// Get One object by ID
+exports.geoObject_details = (req, res, next) => {
+  const id = req.params.id;
+  GeoObject.findById(id, 'description', (err, GeoObject) => {
+    if (err) return next(err);
+    res.send(GeoObject)
   })
 };
 

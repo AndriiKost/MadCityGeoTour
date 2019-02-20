@@ -3,8 +3,8 @@ import { Http } from '@angular/http';
 import { GeoObject } from '../models/GeoObject.model';
 import { AuthService } from './auth.service';
 
-// const url = 'http://localhost:8000/users/';
-const url = 'https://madcitygeotour.herokuapp.com/users/';
+const url = 'http://localhost:8000/users/';
+// const url = 'https://madcitygeotour.herokuapp.com/users/';
 
 @Injectable({
   providedIn: 'root'
