@@ -29,7 +29,7 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.4.0",
-    "mongoose": "^5.4.5",
+    "mongoose": "^5.7.5",
     "ngx-spinner": "^6.1.2",
     "nodemon": "^1.18.9",
     "passport": "^0.4.0",
